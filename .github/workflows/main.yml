@@ -14,5 +14,17 @@ jobs:
           channel: 'stable'
       - run: flutter --version
 
-      - name: Run tests
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run linter
+        run: flutter analyze
+
+      - name: Run unit tests
         run: flutter test
+
+      - name: Build Android APK
+        run: flutter build apk
+
+      - name: Build iOS IPA
+        run: flutter build ios --release --no-codesign
