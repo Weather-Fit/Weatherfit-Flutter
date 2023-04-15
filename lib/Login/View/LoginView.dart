@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Login/ViewModel/LoginViewModel.dart';
+import 'package:weatherfit/Main/View/MainView.dart';
 
 class LoginView extends StatelessWidget {
   @override
@@ -53,6 +54,10 @@ class _LoginView extends StatelessWidget {
                     if (success) {
                       // 로그인 성공 시 다음 페이지로 이동
                       print('로그인 성공');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainView()),
+                      );
                     } else {
                       // 로그인 실패 시 에러 메시지 표시
                     }
