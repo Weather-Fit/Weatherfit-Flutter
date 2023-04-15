@@ -5,10 +5,20 @@ import 'package:weatherfit/Login/ViewModel/LoginViewModel.dart';
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return ChangeNotifierProvider(
       create: (context) => LoginViewModel(),
       child: Scaffold(
-        appBar: AppBar(title: Text('Login')),
+        appBar: AppBar(
+          title: Text(
+            'LOGIN',
+            style: TextStyle(
+              color: theme.colorScheme.onPrimary,
+            ),
+          ),
+          titleTextStyle: theme.textTheme.displayLarge,
+          backgroundColor: theme.colorScheme.primary,
+        ),
         body: _LoginView(),
       ),
     );
