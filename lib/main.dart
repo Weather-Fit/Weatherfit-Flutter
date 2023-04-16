@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MVVM Login Example',
       theme: AppTheme().lightTheme,
-      home: LoginView(),
+      home: SafeArea(
+        child: LoginView(),
+      ),
     );
   }
 }
