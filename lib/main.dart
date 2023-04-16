@@ -40,7 +40,7 @@ class BottomNavigationBarWidget extends StatefulWidget {
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
-  int currentIndex = 0;
+  int currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +69,9 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         type: BottomNavigationBarType.fixed, // 선택시 아이콘 움직이지 않기
         backgroundColor: Colors.white,
         items: [
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.redeem), label: ""),
         ],
       ),
     );
@@ -99,6 +99,29 @@ class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("로그아웃 시험"),
+        actions: [
+          TextButton(
+            child: Text(
+              "로그아웃",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            onPressed: () {
+              // 로그아웃
+              context.read<AuthService>().signOut();
+
+              // 로그인 페이지로 이동
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginView()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Text("두 번째 페이지"),
       ),
