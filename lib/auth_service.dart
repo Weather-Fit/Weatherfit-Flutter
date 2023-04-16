@@ -82,22 +82,44 @@ class AuthService extends ChangeNotifier {
   }
 
   // 구글 로그인 요청하기
-  void googleSignIn() async {
+  void signnInWithGoogle({
+    required Function() onSuccess,
+    required Function(String err) onError,
+  }) async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // 구글 로그인한 계정 정보 요청하기
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Firebase Authentication 연결
-    final OAuthCredential credential = GoogleAuthProvider.credential(
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // 로그인 시도
+    try {
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      onSuccess(); // 성공 함수 호출
+      notifyListeners(); // 로그인 상태 변경 알림
+    } on FirebaseAuthException catch (e) {
+      // firebase auth 에러 발생
+      onError(e.message!);
+    } catch (e) {
+      // Firebase auth 이외의 에러 발생
+      onError(e.toString());
+    }
+
+    /*final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
     final firebaseAuth = FirebaseAuth.instance;
     final UserCredential authResult =
-        await firebaseAuth.signInWithCredential(credential);
+        await firebaseAuth.signInWithCredential(credential);*/
   }
 
   //사용자 정보 가져오려면

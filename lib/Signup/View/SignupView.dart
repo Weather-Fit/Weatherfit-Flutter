@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Login/View/LoginView.dart';
 
-import '../../Home/View/HomeView.dart';
 import '../../auth_service.dart';
 
 class SignupView extends StatefulWidget {

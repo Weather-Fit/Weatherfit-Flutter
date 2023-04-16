@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Signup/View/SignupView.dart';
-import '../../Home/View/HomeView.dart';
 import '../../auth_service.dart';
+import '../../main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -68,7 +68,9 @@ class _LoginViewState extends State<LoginView> {
                         // HomePage로 이동
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => HomeView()),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  BottomNavigationBarWidget()),
                         );
                       },
                       onError: (err) {
@@ -98,7 +100,28 @@ class _LoginViewState extends State<LoginView> {
                   child: Text("구글 계정으로 로그인", style: TextStyle(fontSize: 21)),
                   onPressed: () {
                     // 구글 계정으로 로그인
-                    authService.googleSignIn();
+                    authService.signnInWithGoogle(
+                      onSuccess: () {
+                        // 로그인 성공
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("로그인 성공"),
+                        ));
+
+                        // HomePage로 이동
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  BottomNavigationBarWidget()),
+                        );
+                      },
+                      onError: (err) {
+                        // 에러 발생
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(err),
+                        ));
+                      },
+                    );
                   },
                 ),
               ],
