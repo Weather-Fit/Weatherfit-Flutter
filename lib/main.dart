@@ -1,15 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherfit/firebase_options.dart';
 import 'Login/View/LoginView.dart';
 import 'auth_service.dart';
 import 'package:weatherfit/Login/View/LoginView.dart';
 import 'package:weatherfit/app_theme.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // main 함수에서 async 사용하기 위함
-  await Firebase.initializeApp(); // firebase 앱 시작
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
   runApp(
     MultiProvider(
       providers: [
@@ -38,8 +38,7 @@ class BottomNavigationBarWidget extends StatefulWidget {
   const BottomNavigationBarWidget({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationBarWidgetState createState() =>
-      _BottomNavigationBarWidgetState();
+  _BottomNavigationBarWidgetState createState() => _BottomNavigationBarWidgetState();
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {

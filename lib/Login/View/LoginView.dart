@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:weatherfit/Signup/View/SignupView.dart';
 import '../../auth_service.dart';
 import '../../main.dart';
-import 'package:weatherfit/Login/ViewModel/LoginViewModel.dart';
-import 'package:weatherfit/Main/View/MainView.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -30,10 +28,7 @@ class _LoginViewState extends State<LoginView> {
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    colors: [
-                  Color.fromARGB(255, 95, 171, 233),
-                  Color.fromARGB(255, 197, 234, 255)
-                ])),
+                    colors: [Color.fromARGB(255, 95, 171, 233), Color.fromARGB(255, 197, 234, 255)])),
             alignment: Alignment.center,
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -44,10 +39,7 @@ class _LoginViewState extends State<LoginView> {
                   Center(
                     child: Text(
                       "WeatherFit",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ),
                   SizedBox(height: 32),
@@ -83,9 +75,7 @@ class _LoginViewState extends State<LoginView> {
                           // HomePage로 이동
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BottomNavigationBarWidget()),
+                            MaterialPageRoute(builder: (context) => BottomNavigationBarWidget()),
                           );
                         },
                         onError: (err) {
@@ -112,8 +102,7 @@ class _LoginViewState extends State<LoginView> {
 
                   /// 구글 계정으로 로그인 버튼
                   ElevatedButton(
-                    child: Text("Sign In with Google",
-                        style: TextStyle(fontSize: 21)),
+                    child: Text("Sign In with Google", style: TextStyle(fontSize: 21)),
                     onPressed: () {
                       // 구글 계정으로 로그인
                       authService.signnInWithGoogle(
@@ -126,9 +115,7 @@ class _LoginViewState extends State<LoginView> {
                           // HomePage로 이동
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BottomNavigationBarWidget()),
+                            MaterialPageRoute(builder: (context) => BottomNavigationBarWidget()),
                           );
                         },
                         onError: (err) {
