@@ -21,7 +21,7 @@ class _SignupViewState extends State<SignupView> {
       builder: (context, authService, child) {
         final user = authService.currentUser();
         return Scaffold(
-          appBar: AppBar(title: Text("회원가입")),
+          appBar: AppBar(title: Text("Signuo")),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -29,7 +29,7 @@ class _SignupViewState extends State<SignupView> {
               children: [
                 Center(
                   child: Text(
-                    "회원가입",
+                    "Sign up",
                     style: TextStyle(
                       fontSize: 24,
                     ),
@@ -40,20 +40,20 @@ class _SignupViewState extends State<SignupView> {
                 /// 이메일
                 TextField(
                   controller: emailController,
-                  decoration: InputDecoration(hintText: "이메일"),
+                  decoration: InputDecoration(hintText: "e-mail"),
                 ),
 
                 /// 비밀번호
                 TextField(
                   controller: passwordController,
                   obscureText: false,
-                  decoration: InputDecoration(hintText: "비밀번호"),
+                  decoration: InputDecoration(hintText: "password"),
                 ),
                 SizedBox(height: 32),
 
                 /// 회원가입 버튼
                 ElevatedButton(
-                  child: Text("회원가입", style: TextStyle(fontSize: 21)),
+                  child: Text("Sign up", style: TextStyle(fontSize: 21)),
                   onPressed: () {
                     // 회원가입
                     authService.signUp(
@@ -66,7 +66,7 @@ class _SignupViewState extends State<SignupView> {
                           MaterialPageRoute(builder: (context) => LoginView()),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("회원가입 성공"),
+                          content: Text("Success!"),
                         ));
                       },
                       onError: (err) {

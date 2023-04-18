@@ -111,15 +111,6 @@ class AuthService extends ChangeNotifier {
       // Firebase auth 이외의 에러 발생
       onError(e.toString());
     }
-
-    /*final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    final firebaseAuth = FirebaseAuth.instance;
-    final UserCredential authResult =
-        await firebaseAuth.signInWithCredential(credential);*/
   }
 
   //사용자 정보 가져오려면
