@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Login/View/LoginView.dart';
 import 'auth_service.dart';
+import 'package:weatherfit/Login/View/LoginView.dart';
+import 'package:weatherfit/app_theme.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // main 함수에서 async 사용하기 위함

@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:weatherfit/Signup/View/SignupView.dart';
 import '../../auth_service.dart';
 import '../../main.dart';
+import 'package:weatherfit/Login/ViewModel/LoginViewModel.dart';
+import 'package:weatherfit/Main/View/MainView.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -150,74 +152,5 @@ class _LoginViewState extends State<LoginView> {
 //https://mike123789-dev.tistory.com/entry/%ED%94%8C%EB%9F%AC%ED%84%B0-20-%EB%B2%84%ED%8A%BC-1-TextButton-ElevatedButton-OutlinedButton-IconButton-ButtonBar
 
 
-/*class LoginView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LoginViewModel(),
-      child: Scaffold(
-        appBar: AppBar(title: Text('Weatherfit')),
-        body: _LoginView(),
-      ),
-    );
-  }
-}
 
-class _LoginView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = Provider.of<LoginViewModel>(context);
-
-    return Padding(
-      padding: EdgeInsets.all(15.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Weatherfit',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 200.0,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: viewModel.isLoginDataValid
-                        ? () async {
-                            final success = await viewModel.login();
-                            if (success) {
-                              // 로그인 성공 시 다음 페이지로 이동
-                              /*
-                              Navigator.push(
-                                BottomNavigationBarWidget()
-                              );
-                              */
-                              print('로그인 성공');
-                            } else {
-                              // 로그인 실패 시 에러 메시지 표시
-                            }
-                          }
-                        : null,
-                    child: Text(
-                      'Google Login',
-                      style: TextStyle(fontSize: 15.0),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}*/
 
