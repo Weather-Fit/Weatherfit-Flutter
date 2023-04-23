@@ -11,7 +11,7 @@ class CurrentWeather extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Text(
-        weather ?? "Loading...",
+        weather,
         style: AppTheme().lightTheme.textTheme.bodyMedium?.copyWith(
               color: Color.fromARGB(255, 80, 80, 80),
             ),

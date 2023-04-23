@@ -38,12 +38,15 @@ class _DayViewState extends State<DayView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AddLocation(),
-                  CurrentTime(),
+                  CurrentTime(time: viewModel.currentTime),
                   CurrentPlace(),
-                  CurrentWeather(weather: viewModel.weather!.weather?.first.main),
-                  WeatherImage(),
-                  CurrentTemp(),
-                  MaxMinTemp(),
+                  CurrentWeather(weather: viewModel.weather!.weather?.first.description),
+                  WeatherImage(icon: viewModel.weather!.weather?.first.icon),
+                  CurrentTemp(temp: viewModel.weather!.main?.temp),
+                  MaxMinTemp(
+                    maxTemp: viewModel.weather!.main?.tempMax,
+                    minTemp: viewModel.weather!.main?.tempMin,
+                  ),
                 ],
               ),
             );
