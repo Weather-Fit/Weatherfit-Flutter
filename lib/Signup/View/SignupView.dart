@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Login/View/LoginView.dart';
 
-import '../../auth_service.dart';
+import '../../Login/Model/UserModel.dart';
+import '../../Util/auth_service.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _SignupViewState extends State<SignupView> {
       builder: (context, authService, child) {
         final user = authService.currentUser();
         return Scaffold(
-          appBar: AppBar(title: Text("Signuo")),
+          appBar: AppBar(title: Text("Signup")),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -57,8 +58,9 @@ class _SignupViewState extends State<SignupView> {
                   onPressed: () {
                     // 회원가입
                     authService.signUp(
-                      email: emailController.text,
-                      password: passwordController.text,
+                      user: UserModel(
+                          email: emailController.text,
+                          password: passwordController.text),
                       onSuccess: () {
                         // 회원가입 성공
                         Navigator.push(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherfit/Login/Model/UserModel.dart';
 import 'package:weatherfit/Signup/View/SignupView.dart';
-import '../../auth_service.dart';
+import '../../Util/auth_service.dart';
 import '../../main.dart';
 
 class LoginView extends StatefulWidget {
@@ -24,14 +25,6 @@ class _LoginViewState extends State<LoginView> {
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                  Color.fromARGB(255, 95, 171, 233),
-                  Color.fromARGB(255, 197, 234, 255)
-                ])),
             alignment: Alignment.center,
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -45,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
                       style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Colors.blue),
                     ),
                   ),
                   SizedBox(height: 32),
@@ -53,14 +46,17 @@ class _LoginViewState extends State<LoginView> {
                   /// 이메일
                   TextField(
                     controller: emailController,
-                    decoration: InputDecoration(hintText: "e-mail"),
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), labelText: "e-mail"),
                   ),
+                  SizedBox(height: 16),
 
                   /// 비밀번호
                   TextField(
                     controller: passwordController,
                     obscureText: true, // 비밀번호 안보이게
-                    decoration: InputDecoration(hintText: "password"),
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), labelText: "Password"),
                   ),
                   SizedBox(height: 32),
 
@@ -70,8 +66,9 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () {
                       // 로그인
                       authService.signIn(
-                        email: emailController.text,
-                        password: passwordController.text,
+                        user: UserModel(
+                            email: emailController.text,
+                            password: passwordController.text),
                         onSuccess: () {
                           // 로그인 성공
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -109,9 +106,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
 
                   /// 구글 계정으로 로그인 버튼
-                  ElevatedButton(
-                    child: Text("Sign In with Google",
-                        style: TextStyle(fontSize: 21)),
+                  ElevatedButton.icon(
                     onPressed: () {
                       // 구글 계정으로 로그인
                       authService.signnInWithGoogle(
@@ -137,6 +132,13 @@ class _LoginViewState extends State<LoginView> {
                         },
                       );
                     },
+                    icon: Image.asset(
+                      'asset/images/ic_google.png',
+                      width: 20,
+                      height: 20,
+                    ),
+                    label: Text("Sign In with Google",
+                        style: TextStyle(fontSize: 21)),
                   ),
                 ],
               ),
@@ -147,77 +149,3 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
-//https://mike123789-dev.tistory.com/entry/%ED%94%8C%EB%9F%AC%ED%84%B0-20-%EB%B2%84%ED%8A%BC-1-TextButton-ElevatedButton-OutlinedButton-IconButton-ButtonBar
-
-
-/*class LoginView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LoginViewModel(),
-      child: Scaffold(
-        appBar: AppBar(title: Text('Weatherfit')),
-        body: _LoginView(),
-      ),
-    );
-  }
-}
-
-class _LoginView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = Provider.of<LoginViewModel>(context);
-
-    return Padding(
-      padding: EdgeInsets.all(15.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Weatherfit',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 200.0,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: viewModel.isLoginDataValid
-                        ? () async {
-                            final success = await viewModel.login();
-                            if (success) {
-                              // 로그인 성공 시 다음 페이지로 이동
-                              /*
-                              Navigator.push(
-                                BottomNavigationBarWidget()
-                              );
-                              */
-                              print('로그인 성공');
-                            } else {
-                              // 로그인 실패 시 에러 메시지 표시
-                            }
-                          }
-                        : null,
-                    child: Text(
-                      'Google Login',
-                      style: TextStyle(fontSize: 15.0),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}*/
-
