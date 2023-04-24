@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'Calendar/View/CalendarView.dart';
+import 'Calendar/calendar_service.dart';
 import 'Login/View/LoginView.dart';
 import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
@@ -14,6 +16,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
+        ChangeNotifierProvider(create: (context) => RecordService()),
       ],
       child: const MyApp(),
     ),
@@ -51,13 +54,13 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       body: IndexedStack(
         index: currentIndex, // index 순서에 해당하는 child를 맨 위에 보여줌
         children: [
-          FirstPage(),
+          HomePage(),
           SecondPage(),
           ThirdPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex, // 현재 보여주는 탭
+        currentIndex: currentIndex,
         onTap: (newIndex) {
           print("selected newIndex : $newIndex");
           // 다른 페이지로 이동
@@ -65,31 +68,17 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             currentIndex = newIndex;
           });
         },
-        selectedItemColor: Colors.blue, // 선택된 아이콘 색상
-        unselectedItemColor: Colors.grey, // 선택되지 않은 아이콘 색상
-        showSelectedLabels: false, // 선택된 항목 label 숨기기
-        showUnselectedLabels: false, // 선택되지 않은 항목 label 숨기기
-        type: BottomNavigationBarType.fixed, // 선택시 아이콘 움직이지 않기
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: ""),
         ],
-      ),
-    );
-  }
-}
-
-/// 첫 번째 페이지
-class FirstPage extends StatelessWidget {
-  const FirstPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("첫 번째 페이지"),
       ),
     );
   }
