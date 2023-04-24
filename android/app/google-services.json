@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "819583882098",
+    "project_id": "weatherfit-be9a8",
+    "storage_bucket": "weatherfit-be9a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819583882098:android:63d5890ae0589f01f543eb",
+        "android_client_info": {
+          "package_name": "com.example.weatherfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819583882098-go08k2mub6ma86ji7o2onk8ekectsric.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQli52Jg1cLVkFVqLpgnn5IHvWnONZDsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819583882098-c55a0jeui6jip9ns8ifdna62pjqb6lp7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
