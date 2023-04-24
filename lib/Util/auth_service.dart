@@ -88,8 +88,7 @@ class AuthService extends ChangeNotifier {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // 구글 로그인한 계정 정보 요청하기
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
     // Firebase Authentication 연결
     final credential = GoogleAuthProvider.credential(

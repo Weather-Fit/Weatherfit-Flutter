@@ -106,6 +106,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
 
                   /// 구글 계정으로 로그인 버튼
+
                   ElevatedButton.icon(
                     onPressed: () {
                       // 구글 계정으로 로그인
