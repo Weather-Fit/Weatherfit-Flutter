@@ -37,8 +37,20 @@ class _LoginViewState extends State<LoginView> {
                       "WeatherFit",
                       style: TextStyle(
                           fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
                           color: Colors.blue),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  Center(
+                    child: Text(
+                      "Record your outfit coordination\n   based on the temperature",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w100,
+                          color: Colors.black),
                     ),
                   ),
                   SizedBox(height: 32),
@@ -62,7 +74,9 @@ class _LoginViewState extends State<LoginView> {
 
                   /// 로그인 버튼
                   ElevatedButton(
-                    child: Text("Login", style: TextStyle(fontSize: 21)),
+                    child: Text("Login",
+                        style: TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.w400)),
                     onPressed: () {
                       // 로그인
                       authService.signIn(
@@ -95,7 +109,9 @@ class _LoginViewState extends State<LoginView> {
 
                   /// 회원가입 버튼
                   ElevatedButton(
-                    child: Text("Sign up", style: TextStyle(fontSize: 21)),
+                    child: Text("Sign up",
+                        style: TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.w400)),
                     onPressed: () {
                       // 회원가입 화면으로 이동
                       Navigator.push(
@@ -104,6 +120,17 @@ class _LoginViewState extends State<LoginView> {
                       );
                     },
                   ),
+                  SizedBox(height: 16),
+
+                  Text(
+                    '---- or ----',
+                    style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100,
+                        color: Colors.black),
+                  ),
+                  SizedBox(height: 16),
 
                   /// 구글 계정으로 로그인 버튼
 
@@ -139,7 +166,8 @@ class _LoginViewState extends State<LoginView> {
                       height: 20,
                     ),
                     label: Text("Sign In with Google",
-                        style: TextStyle(fontSize: 21)),
+                        style: TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.w400)),
                   ),
                 ],
               ),
