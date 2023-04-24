@@ -1,72 +1,180 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherfit/Login/ViewModel/LoginViewModel.dart';
-import 'package:weatherfit/Main/View/MainView.dart';
+import 'package:weatherfit/Login/Model/UserModel.dart';
+import 'package:weatherfit/Signup/View/SignupView.dart';
+import '../../Util/auth_service.dart';
+import '../../main.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return ChangeNotifierProvider(
-      create: (context) => LoginViewModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'LOGIN',
-            style: TextStyle(
-              color: theme.colorScheme.onPrimary,
-            ),
-          ),
-          titleTextStyle: theme.textTheme.displayLarge,
-          backgroundColor: theme.colorScheme.primary,
-        ),
-        body: _LoginView(),
-      ),
-    );
-  }
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginView extends StatelessWidget {
+class _LoginViewState extends State<LoginView> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<LoginViewModel>(context);
+    return Consumer<AuthService>(
+      builder: (context, authService, child) {
+        final user = authService.currentUser();
+        return Scaffold(
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.center,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text(
+                      "WeatherFit",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blue),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  Center(
+                    child: Text(
+                      "Record your outfit coordination\n   based on the temperature",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w100,
+                          color: Colors.black),
+                    ),
+                  ),
+                  SizedBox(height: 32),
 
-    return Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextField(
-            onChanged: viewModel.setEmail,
-            decoration: InputDecoration(labelText: 'Email'),
-          ),
-          SizedBox(height: 16.0),
-          TextField(
-            onChanged: viewModel.setPassword,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-          ),
-          SizedBox(height: 32.0),
-          ElevatedButton(
-            onPressed: viewModel.isLoginDataValid
-                ? () async {
-                    final success = await viewModel.login();
-                    if (success) {
-                      // 로그인 성공 시 다음 페이지로 이동
-                      print('로그인 성공');
+                  /// 이메일
+                  TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), labelText: "e-mail"),
+                  ),
+                  SizedBox(height: 16),
+
+                  /// 비밀번호
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true, // 비밀번호 안보이게
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), labelText: "Password"),
+                  ),
+                  SizedBox(height: 32),
+
+                  /// 로그인 버튼
+                  ElevatedButton(
+                    child: Text("Login",
+                        style: TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.w400)),
+                    onPressed: () {
+                      // 로그인
+                      authService.signIn(
+                        user: UserModel(
+                            email: emailController.text,
+                            password: passwordController.text),
+                        onSuccess: () {
+                          // 로그인 성공
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("로그인 성공"),
+                          ));
+
+                          // HomePage로 이동
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BottomNavigationBarWidget()),
+                          );
+                        },
+                        onError: (err) {
+                          // 에러 발생
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(err),
+                          ));
+                        },
+                      );
+                    },
+                  ),
+
+                  /// 회원가입 버튼
+                  ElevatedButton(
+                    child: Text("Sign up",
+                        style: TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.w400)),
+                    onPressed: () {
+                      // 회원가입 화면으로 이동
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MainView()),
+                        MaterialPageRoute(builder: (context) => SignupView()),
                       );
-                    } else {
-                      // 로그인 실패 시 에러 메시지 표시
-                    }
-                  }
-                : null,
-            child: Text('Login'),
+                    },
+                  ),
+                  SizedBox(height: 16),
+
+                  Text(
+                    '---- or ----',
+                    style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100,
+                        color: Colors.black),
+                  ),
+                  SizedBox(height: 16),
+
+                  /// 구글 계정으로 로그인 버튼
+
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // 구글 계정으로 로그인
+                      authService.signnInWithGoogle(
+                        onSuccess: () {
+                          // 로그인 성공
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("로그인 성공"),
+                          ));
+
+                          // HomePage로 이동
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BottomNavigationBarWidget()),
+                          );
+                        },
+                        onError: (err) {
+                          // 에러 발생
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(err),
+                          ));
+                        },
+                      );
+                    },
+                    icon: Image.asset(
+                      'asset/images/ic_google.png',
+                      width: 20,
+                      height: 20,
+                    ),
+                    label: Text("Sign In with Google",
+                        style: TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.w400)),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
