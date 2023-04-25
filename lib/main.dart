@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Calendar/View/CalendarView.dart';
-import 'Calendar/calendar_service.dart';
+import 'Util/calendar_service.dart';
 import 'Login/View/LoginView.dart';
 import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
@@ -54,7 +54,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       body: IndexedStack(
         index: currentIndex, // index 순서에 해당하는 child를 맨 위에 보여줌
         children: [
-          HomePage(),
+          CalendarView(),
           SecondPage(),
           ThirdPage(),
         ],

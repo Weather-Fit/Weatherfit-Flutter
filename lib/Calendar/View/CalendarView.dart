@@ -5,19 +5,19 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:weatherfit/app_theme.dart';
 
-import '../calendar_service.dart';
+import '../../Util/calendar_service.dart';
+import '../ViewModel/CalendarViewModel.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class CalendarView extends StatefulWidget {
+  const CalendarView({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CalendarView> createState() => _CalendarViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CalendarViewState extends State<CalendarView> {
   CalendarFormat calendarFormat = CalendarFormat.month;
 
-  // 선택된 날짜
   DateTime selectedDate = DateTime.now();
 
   TextEditingController createTextController = TextEditingController();
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Consumer<RecordService>(
       builder: (context, recordService, child) {
-        List<Record> diaryList = recordService.getByDate(selectedDate);
+        List<Record> recordList = recordService.getByDate(selectedDate);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: SafeArea(
@@ -48,11 +48,10 @@ class _HomePageState extends State<HomePage> {
                     return recordService.getByDate(date);
                   },
                   calendarStyle: CalendarStyle(
-                    // today 색상 제거
                     todayTextStyle: TextStyle(color: Colors.black),
                     todayDecoration: BoxDecoration(
                       color: Colors.white,
-                      shape: BoxShape.rectangle,
+                      shape: BoxShape.circle,
                     ),
                   ),
                   selectedDayPredicate: (day) {
@@ -65,10 +64,8 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 Divider(height: 1),
-
-                /// 선택한 날짜의 일기 목록
                 Expanded(
-                  child: diaryList.isEmpty
+                  child: recordList.isEmpty
                       ? Center(
                           child: Text(
                             "코디를 작성해주세요.",
@@ -79,13 +76,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                         )
                       : ListView.separated(
-                          itemCount: diaryList.length,
+                          itemCount: recordList.length,
                           itemBuilder: (context, index) {
-                            // 역순으로 보여주기
-                            int i = diaryList.length - index - 1;
-                            Record record = diaryList[i];
+                            int i = recordList.length - index - 1;
+                            Record record = recordList[i];
                             return ListTile(
-                              /// text
                               title: Text(
                                 record.text,
                                 style: TextStyle(
@@ -93,8 +88,6 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.black,
                                 ),
                               ),
-
-                              /// createdAt
                               trailing: Text(
                                 DateFormat('kk:mm').format(record.createdAt),
                                 style: TextStyle(
@@ -102,20 +95,15 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.grey,
                                 ),
                               ),
-
-                              /// 클릭하여 update
                               onTap: () {
                                 showUpdateDialog(recordService, record);
                               },
-
-                              /// 꾹 누르면 delete
                               onLongPress: () {
                                 showDeleteDialog(recordService, record);
                               },
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {
-                            // item 사이에 Divider 추가
                             return Divider(height: 1);
                           },
                         ),
@@ -123,8 +111,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-
-          /// Floating Action Button
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.create),
             onPressed: () {
@@ -136,31 +122,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// 작성하기
-  /// 엔터를 누르거나 작성 버튼을 누르는 경우 호출
-  void createDiary(RecordService recordService) {
-    // 앞뒤 공백 삭제
-    String newText = createTextController.text.trim();
-    if (newText.isNotEmpty) {
-      recordService.create(newText, selectedDate);
-      createTextController.text = "";
-    }
-  }
-
-  /// 수정하기
-  /// 엔터를 누르거나 수정 버튼을 누르는 경우 호출
-  void updateDiary(RecordService recordService, Record record) {
-    // 앞뒤 공백 삭제
-    String updatedText = updateTextController.text.trim();
-    if (updatedText.isNotEmpty) {
-      recordService.update(
-        record.createdAt,
-        updatedText,
-      );
-    }
-  }
-
-  /// 작성 다이얼로그 보여주기
   void showCreateDialog(RecordService recordService) {
     showDialog(
       context: context,
@@ -170,40 +131,33 @@ class _HomePageState extends State<HomePage> {
           content: TextField(
             controller: createTextController,
             autofocus: true,
-            // 커서 색상
-            //cursorColor: Colors.indigo,
             decoration: InputDecoration(
               hintText: "코디를 작성해주세요.",
-              // 포커스 되었을 때 밑줄 색상
               focusedBorder: UnderlineInputBorder(
-                  //borderSide: BorderSide(color: Colors.indigo),
-                  ),
+                borderSide: BorderSide(color: Colors.blue),
+              ),
             ),
             onSubmitted: (_) {
-              // 엔터 누를 때 작성하기
-              createDiary(recordService);
+              creatRecord(recordService);
               Navigator.pop(context);
             },
           ),
           actions: [
-            /// 취소 버튼
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text(
                 "취소",
-                //style: TextStyle(color: Colors.indigo),
+                style: TextStyle(color: Colors.blue),
               ),
             ),
-
-            /// 작성 버튼
             TextButton(
               onPressed: () {
-                createDiary(recordService);
+                creatRecord(recordService);
                 Navigator.pop(context);
               },
               child: Text(
                 "작성",
-                //style: TextStyle(color: Colors.indigo),
+                style: TextStyle(color: Colors.blue),
               ),
             ),
           ],
@@ -212,7 +166,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// 수정 다이얼로그 보여주기
   void showUpdateDialog(RecordService recordService, Record record) {
     showDialog(
       context: context,
@@ -223,46 +176,39 @@ class _HomePageState extends State<HomePage> {
           content: TextField(
             autofocus: true,
             controller: updateTextController,
-            // 커서 색상
-            //cursorColor: Colors.indigo,
+            cursorColor: Colors.blue,
             decoration: InputDecoration(
               hintText: "코디를 작성해주세요.",
-              // 포커스 되었을 때 밑줄 색상
               focusedBorder: UnderlineInputBorder(
-                  //borderSide: BorderSide(color: Colors.indigo),
-                  ),
+                borderSide: BorderSide(color: Colors.blue),
+              ),
             ),
             onSubmitted: (v) {
-              // 엔터 누를 때 수정하기
-              updateDiary(recordService, record);
+              updateRecord(recordService, record);
               Navigator.pop(context);
             },
           ),
           actions: [
-            /// 취소 버튼
             TextButton(
               child: Text(
                 "취소",
                 style: TextStyle(
                   fontSize: 18,
-                  //color: Colors.indigo,
+                  color: Colors.blue,
                 ),
               ),
               onPressed: () => Navigator.pop(context),
             ),
-
-            /// 수정 버튼
             TextButton(
               child: Text(
                 "수정",
                 style: TextStyle(
                   fontSize: 18,
-                  //color: Colors.indigo,
+                  color: Colors.blue,
                 ),
               ),
               onPressed: () {
-                // 수정하기
-                updateDiary(recordService, record);
+                updateRecord(recordService, record);
                 Navigator.pop(context);
               },
             ),
@@ -272,7 +218,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// 삭제 다이얼로그 보여주기
   void showDeleteDialog(RecordService recordService, Record record) {
     showDialog(
       context: context,
@@ -287,19 +232,17 @@ class _HomePageState extends State<HomePage> {
                 "취소",
                 style: TextStyle(
                   fontSize: 18,
-                  //color: Colors.indigo,
+                  color: Colors.blue,
                 ),
               ),
               onPressed: () => Navigator.pop(context),
             ),
-
-            /// Delete
             TextButton(
               child: Text(
                 "삭제",
                 style: TextStyle(
                   fontSize: 18,
-                  //color: Colors.indigo,
+                  color: Colors.blue,
                 ),
               ),
               onPressed: () {
