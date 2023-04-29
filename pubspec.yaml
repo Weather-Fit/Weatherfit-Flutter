@@ -10,11 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.1
-  http: ^0.13.3
   flutter_dotenv: ^5.0.2
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
+  provider: ^6.0.5
+  firebase_auth: ^4.4.1
+  firebase_core: ^2.9.0
+  cloud_firestore: ^4.5.1
+  google_sign_in: ^6.1.0
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
@@ -46,3 +50,4 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - asset/images/ic_google.png
