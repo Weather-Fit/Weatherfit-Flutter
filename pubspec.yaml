@@ -19,6 +19,9 @@ dependencies:
   cloud_firestore: ^4.5.1
   google_sign_in: ^6.1.0
   http: ^0.13.3
+  geolocator: ^7.6.2
+  permission_handler: ^8.3.0
+  geocoding: ^2.0.1
 
 dev_dependencies:
   flutter_test:

@@ -3,7 +3,6 @@ import 'package:weatherfit/Main/View/DayView/AddLocation.dart';
 import 'package:weatherfit/Main/View/DayView/CurrentPlace.dart';
 import 'package:weatherfit/Main/View/DayView/CurrentTemp.dart';
 import 'package:weatherfit/Main/View/DayView/CurrentTime.dart';
-import 'package:weatherfit/Main/View/DayView/CurrentWeather.dart';
 import 'package:weatherfit/Main/View/DayView/Humidity.dart';
 import 'package:weatherfit/Main/View/DayView/MaxTemp.dart';
 import 'package:weatherfit/Main/View/DayView/MinTemp.dart';
@@ -47,7 +46,7 @@ class _DayViewState extends State<DayView> {
                     children: [
                       Column(
                         children: [
-                          CurrentPlace(),
+                          CurrentPlace(location: viewModel.location),
                           CurrentTemp(temp: viewModel.weather!.main?.temp),
                         ],
                       ),

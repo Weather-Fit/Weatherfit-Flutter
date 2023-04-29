@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:weatherfit/Login/View/LoginView.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Main/View/MainView.dart';
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // main 함수에서 async 사용하기 위함
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
   await dotenv.load(fileName: '.env');
+  await Permission.location.request();
   runApp(
     MultiProvider(
       providers: [
