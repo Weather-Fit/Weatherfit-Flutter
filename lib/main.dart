@@ -1,18 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:weatherfit/Login/View/LoginView.dart';
-import 'package:weatherfit/app_theme.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'package:provider/provider.dart';
-import 'Login/View/LoginView.dart';
+import 'package:weatherfit/Main/View/MainView.dart';
 import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // main 함수에서 async 사용하기 위함
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
-
+  await dotenv.load(fileName: '.env');
   runApp(
     MultiProvider(
       providers: [
@@ -128,7 +126,7 @@ class SecondPage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text("두 번째 페이지"),
+        child: MainView(),
       ),
     );
   }

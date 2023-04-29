@@ -22,8 +22,8 @@ class _DayViewState extends State<DayView> {
 
   @override
   void initState() {
-    viewModel.fetchDayWeather();
     super.initState();
+    viewModel.fetchDayWeather();
   }
 
   @override

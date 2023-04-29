@@ -18,6 +18,7 @@ class DayViewModel with ChangeNotifier {
   Future<void> fetchDayWeather() async {
     final lat = 36;
     final lon = 128;
+
     final API = dotenv.env['API_KEY'];
 
     final response = await http
