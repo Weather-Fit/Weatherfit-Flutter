@@ -10,10 +10,10 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme().lightTheme.colorScheme.tertiary,
+      backgroundColor: AppTheme().lightTheme.colorScheme.secondary,
       body: SafeArea(
         child: Container(
-          color: AppTheme().lightTheme.colorScheme.tertiary,
+          color: AppTheme().lightTheme.colorScheme.secondary,
           child: Center(
             child: SingleChildScrollView(
               child: Column(

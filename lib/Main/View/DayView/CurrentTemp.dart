@@ -10,10 +10,11 @@ class CurrentTemp extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Text(
-        temp.toString(),
+        "${temp.toString()}º",
         style: AppTheme().lightTheme.textTheme.displayLarge?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: Colors.black,
+              fontWeight: FontWeight.w900,
+              color: Color.fromARGB(190, 255, 255, 255),
+              fontSize: 48,
             ),
       ),
     );

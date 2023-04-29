@@ -35,7 +35,7 @@ class DayViewModel with ChangeNotifier {
 
   void getCurrentTime() {
     DateTime now = DateTime.now();
-    currentTime = DateFormat('hh:mm a').format(now);
+    currentTime = DateFormat('EEEE, dd').format(now);
   }
 
   void convertTemp() {

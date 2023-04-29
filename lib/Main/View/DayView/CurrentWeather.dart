@@ -8,14 +8,11 @@ class CurrentWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Text(
-        weather,
-        style: AppTheme().lightTheme.textTheme.bodyMedium?.copyWith(
-              color: Color.fromARGB(255, 80, 80, 80),
-            ),
-      ),
+    return Text(
+      weather,
+      style: AppTheme().lightTheme.textTheme.bodyMedium?.copyWith(
+            color: Color.fromARGB(180, 255, 255, 255),
+          ),
     );
   }
 }

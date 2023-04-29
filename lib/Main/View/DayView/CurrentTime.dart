@@ -8,11 +8,12 @@ class CurrentTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
       child: Text(
         time,
         style: AppTheme().lightTheme.textTheme.bodyMedium?.copyWith(
-              color: Colors.white,
+              fontSize: 18,
+              color: Color.fromARGB(170, 255, 255, 255),
             ),
       ),
     );
