@@ -17,7 +17,7 @@ class AppTheme {
       onPrimary: Color(0xFFFFFFFF),
       primaryContainer: Color(0xFFC1E8FF),
       onPrimaryContainer: Color(0xFF001E2B),
-      secondary: Color.fromARGB(255, 86, 80, 255),
+      secondary: Color.fromARGB(255, 88, 119, 255),
       onSecondary: Color(0xFFFFFFFF),
       secondaryContainer: Color(0xFFD7E2FF),
       onSecondaryContainer: Color(0xFF001A40),

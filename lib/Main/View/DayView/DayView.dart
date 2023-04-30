@@ -7,81 +7,56 @@ import 'package:weatherfit/Main/View/DayView/Humidity.dart';
 import 'package:weatherfit/Main/View/DayView/MaxTemp.dart';
 import 'package:weatherfit/Main/View/DayView/MinTemp.dart';
 import 'package:weatherfit/Main/View/DayView/WeatherImage.dart';
-import 'package:provider/provider.dart';
 import 'package:weatherfit/Main/View/DayView/Wind.dart';
-import 'package:weatherfit/Main/ViewModel/DayViewModel.dart';
-import 'package:weatherfit/Util/Loading.dart';
+import 'package:weatherfit/Main/ViewModel/MainViewModel.dart';
 
-class DayView extends StatefulWidget {
-  DayView({super.key});
-
-  @override
-  State<DayView> createState() => _DayViewState();
-}
-
-class _DayViewState extends State<DayView> {
-  final DayViewModel viewModel = DayViewModel();
-
-  @override
-  void initState() {
-    super.initState();
-    viewModel.fetchDayWeather();
-  }
+class DayView extends StatelessWidget {
+  final MainViewModel viewModel;
+  DayView({required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<DayViewModel>(
-      create: (context) => viewModel,
-      child: Consumer<DayViewModel>(
-        builder: (context, viewModel, child) {
-          if (viewModel.weather != null) {
-            return Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AddLocation(),
+          CurrentTime(time: viewModel.currentTime),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
                 children: [
-                  AddLocation(),
-                  CurrentTime(time: viewModel.currentTime),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [
-                          CurrentPlace(location: viewModel.location),
-                          CurrentTemp(temp: viewModel.weather!.main?.temp),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          // CurrentWeather(weather: viewModel.weather!.weather?.first.description),
-                          WeatherImage(icon: viewModel.weather!.weather?.first.icon),
-                        ],
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      MaxTemp(
-                        maxTemp: viewModel.weather!.main?.tempMax,
-                      ),
-                      MinTemp(
-                        minTemp: viewModel.weather!.main?.tempMin,
-                      ),
-                      Wind(
-                        windSpeed: viewModel.weather!.wind?.speed,
-                      ),
-                      Humidity(
-                        humidity: viewModel.weather!.main?.humidity,
-                      )
-                    ],
-                  ),
+                  CurrentPlace(location: viewModel.location),
+                  CurrentTemp(temp: viewModel.weather!.main?.temp),
                 ],
               ),
-            );
-          } else {
-            return Loading();
-          }
-        },
+              Column(
+                children: [
+                  // CurrentWeather(weather: viewModel.weather!.weather?.first.description),
+                  WeatherImage(icon: viewModel.weather!.weather?.first.icon),
+                ],
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              MaxTemp(
+                maxTemp: viewModel.weather!.main?.tempMax,
+              ),
+              MinTemp(
+                minTemp: viewModel.weather!.main?.tempMin,
+              ),
+              Wind(
+                windSpeed: viewModel.weather!.wind?.speed,
+              ),
+              Humidity(
+                humidity: viewModel.weather!.main?.humidity,
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

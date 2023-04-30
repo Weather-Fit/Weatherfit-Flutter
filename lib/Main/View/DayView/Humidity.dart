@@ -24,7 +24,7 @@ class Humidity extends StatelessWidget {
             "${humidity}%",
             style: AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: Color.fromARGB(180, 255, 255, 255),
+                  color: Color.fromARGB(220, 255, 255, 255),
                 ),
           ),
         ],
