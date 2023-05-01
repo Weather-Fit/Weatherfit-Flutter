@@ -47,12 +47,15 @@ class _CalendarViewState extends State<CalendarView> {
                     return recordService.getByDate(date);
                   },
                   calendarStyle: CalendarStyle(
-                    todayTextStyle: TextStyle(color: Colors.black),
-                    todayDecoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+                      todayTextStyle: TextStyle(color: Colors.black),
+                      todayDecoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      selectedDecoration: BoxDecoration(
+                        color: AppTheme().lightTheme.colorScheme.tertiary,
+                        shape: BoxShape.circle,
+                      )),
                   selectedDayPredicate: (day) {
                     return isSameDay(selectedDate, day);
                   },
@@ -69,7 +72,7 @@ class _CalendarViewState extends State<CalendarView> {
                           child: Text(
                             "코디를 작성해주세요.",
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: AppTheme().lightTheme.colorScheme.outline,
                               fontSize: 18,
                             ),
                           ),
@@ -84,15 +87,18 @@ class _CalendarViewState extends State<CalendarView> {
                               title: Text(
                                 record.text,
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
-                                ),
+                                    fontSize: 15,
+                                    color: AppTheme()
+                                        .lightTheme
+                                        .colorScheme
+                                        .onSurfaceVariant),
                               ),
                               trailing: Text(
                                 DateFormat('kk:mm').format(record.createdAt),
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: Colors.grey,
+                                  color:
+                                      AppTheme().lightTheme.colorScheme.outline,
                                 ),
                               ),
                               onTap: () {
@@ -112,6 +118,7 @@ class _CalendarViewState extends State<CalendarView> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: AppTheme().lightTheme.colorScheme.primary,
             child: Icon(Icons.create),
             onPressed: () {
               showCreateDialog(recordService);
@@ -124,8 +131,9 @@ class _CalendarViewState extends State<CalendarView> {
 
   void creatRecord(RecordService recordService) {
     String newText = createTextController.text.trim();
-    if (newText.isNotEmpty) {
-      recordService.create(newText, selectedDate);
+    String newImage = createTextController.text.trim();
+    if (newText.isNotEmpty || newImage.isNotEmpty) {
+      recordService.create(newText, selectedDate, newImage);
       createTextController.text = "";
     }
   }
@@ -133,10 +141,7 @@ class _CalendarViewState extends State<CalendarView> {
   void updateRecord(RecordService recordService, Record record) {
     String updatedText = updateTextController.text.trim();
     if (updatedText.isNotEmpty) {
-      recordService.update(
-        record.createdAt,
-        updatedText,
-      );
+      recordService.update(record.createdAt, updatedText, record.image);
     }
   }
 
@@ -152,7 +157,8 @@ class _CalendarViewState extends State<CalendarView> {
             decoration: InputDecoration(
               hintText: "코디를 작성해주세요.",
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue),
+                borderSide: BorderSide(
+                    color: AppTheme().lightTheme.colorScheme.primary),
               ),
             ),
             onSubmitted: (_) {
@@ -165,7 +171,8 @@ class _CalendarViewState extends State<CalendarView> {
               onPressed: () => Navigator.pop(context),
               child: Text(
                 "취소",
-                style: TextStyle(color: Colors.blue),
+                style:
+                    TextStyle(color: AppTheme().lightTheme.colorScheme.primary),
               ),
             ),
             TextButton(
@@ -175,7 +182,8 @@ class _CalendarViewState extends State<CalendarView> {
               },
               child: Text(
                 "작성",
-                style: TextStyle(color: Colors.blue),
+                style:
+                    TextStyle(color: AppTheme().lightTheme.colorScheme.primary),
               ),
             ),
           ],
@@ -194,11 +202,12 @@ class _CalendarViewState extends State<CalendarView> {
           content: TextField(
             autofocus: true,
             controller: updateTextController,
-            cursorColor: Colors.blue,
+            cursorColor: AppTheme().lightTheme.colorScheme.primary,
             decoration: InputDecoration(
               hintText: "코디를 작성해주세요.",
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue),
+                borderSide: BorderSide(
+                    color: AppTheme().lightTheme.colorScheme.primary),
               ),
             ),
             onSubmitted: (v) {
@@ -212,7 +221,7 @@ class _CalendarViewState extends State<CalendarView> {
                 "취소",
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.blue,
+                  color: AppTheme().lightTheme.colorScheme.primary,
                 ),
               ),
               onPressed: () => Navigator.pop(context),
@@ -222,7 +231,7 @@ class _CalendarViewState extends State<CalendarView> {
                 "수정",
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.blue,
+                  color: AppTheme().lightTheme.colorScheme.primary,
                 ),
               ),
               onPressed: () {
@@ -250,7 +259,7 @@ class _CalendarViewState extends State<CalendarView> {
                 "취소",
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.blue,
+                  color: AppTheme().lightTheme.colorScheme.primary,
                 ),
               ),
               onPressed: () => Navigator.pop(context),
@@ -260,7 +269,7 @@ class _CalendarViewState extends State<CalendarView> {
                 "삭제",
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.blue,
+                  color: AppTheme().lightTheme.colorScheme.primary,
                 ),
               ),
               onPressed: () {

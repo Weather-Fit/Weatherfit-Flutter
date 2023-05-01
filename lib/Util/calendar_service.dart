@@ -7,16 +7,19 @@ import 'package:table_calendar/table_calendar.dart';
 class Record {
   String text;
   DateTime createdAt;
+  String image;
 
   Record({
     required this.text,
     required this.createdAt,
+    required this.image,
   });
 
   Map<String, dynamic> toJson() {
     return {
       "text": text,
       "createdAt": createdAt.toString(),
+      "image": image,
     };
   }
 
@@ -24,6 +27,7 @@ class Record {
     return Record(
       text: jsonMap['text'],
       createdAt: DateTime.parse(jsonMap['createdAt']),
+      image: jsonMap['image'],
     );
   }
 }
@@ -49,7 +53,7 @@ class RecordService extends ChangeNotifier {
         .toList();
   }
 
-  void create(String text, DateTime selectedDate) {
+  void create(String text, DateTime selectedDate, String image) {
     DateTime now = DateTime.now();
 
     DateTime createdAt = DateTime(
@@ -64,6 +68,7 @@ class RecordService extends ChangeNotifier {
     Record record = Record(
       text: text,
       createdAt: createdAt,
+      image: image,
     );
     recordList.add(record);
     notifyListeners();
@@ -71,11 +76,12 @@ class RecordService extends ChangeNotifier {
     _saveRecordList();
   }
 
-  void update(DateTime createdAt, String newContent) {
+  void update(DateTime createdAt, String newContent, String newImage) {
     Record record =
         recordList.firstWhere((record) => record.createdAt == createdAt);
 
     record.text = newContent;
+    record.image = newImage;
     notifyListeners();
 
     _saveRecordList();

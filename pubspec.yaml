@@ -41,6 +41,7 @@ dependencies:
   table_calendar: ^3.0.8
   provider: ^6.0.5
   shared_preferences: ^2.1.0
+  image_picker: ^0.8.7+4
 
 
 dev_dependencies:
