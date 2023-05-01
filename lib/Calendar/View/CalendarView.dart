@@ -6,7 +6,6 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:weatherfit/app_theme.dart';
 
 import '../../Util/calendar_service.dart';
-import '../ViewModel/CalendarViewModel.dart';
 
 class CalendarView extends StatefulWidget {
   const CalendarView({Key? key}) : super(key: key);
@@ -81,6 +80,7 @@ class _CalendarViewState extends State<CalendarView> {
                             int i = recordList.length - index - 1;
                             Record record = recordList[i];
                             return ListTile(
+                              leading: Icon(Icons.backpack),
                               title: Text(
                                 record.text,
                                 style: TextStyle(
@@ -91,7 +91,7 @@ class _CalendarViewState extends State<CalendarView> {
                               trailing: Text(
                                 DateFormat('kk:mm').format(record.createdAt),
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 10,
                                   color: Colors.grey,
                                 ),
                               ),

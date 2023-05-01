@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Login/Model/UserModel.dart';
 import 'package:weatherfit/Signup/View/SignupView.dart';
+import 'package:weatherfit/app_theme.dart';
 import '../../Util/auth_service.dart';
 import '../../main.dart';
 
@@ -30,16 +31,17 @@ class _LoginViewState extends State<LoginView> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Center(
                     child: Text(
                       "WeatherFit",
                       style: TextStyle(
-                          fontSize: 30,
-                          fontFamily: 'Pretendard',
-                          fontWeight: FontWeight.w600,
-                          color: Colors.blue),
+                        fontSize: 30,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w600,
+                        color: AppTheme().lightTheme.colorScheme.tertiary,
+                      ),
                     ),
                   ),
                   SizedBox(height: 32),
@@ -74,6 +76,9 @@ class _LoginViewState extends State<LoginView> {
 
                   /// 로그인 버튼
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppTheme().lightTheme.colorScheme.tertiary,
+                    ),
                     child: Text("Login",
                         style: TextStyle(
                             fontSize: 21, fontWeight: FontWeight.w400)),
@@ -109,6 +114,9 @@ class _LoginViewState extends State<LoginView> {
 
                   /// 회원가입 버튼
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppTheme().lightTheme.colorScheme.tertiary,
+                    ),
                     child: Text("Sign up",
                         style: TextStyle(
                             fontSize: 21, fontWeight: FontWeight.w400)),
@@ -122,19 +130,25 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   SizedBox(height: 16),
 
-                  Text(
-                    '---- or ----',
-                    style: TextStyle(
+                  Center(
+                    child: Text(
+                      '---- or ----',
+                      style: TextStyle(
                         fontFamily: 'Pretendard',
                         fontSize: 15,
                         fontWeight: FontWeight.w100,
-                        color: Colors.black),
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 16),
 
                   /// 구글 계정으로 로그인 버튼
 
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppTheme().lightTheme.colorScheme.tertiary,
+                    ),
                     onPressed: () {
                       // 구글 계정으로 로그인
                       authService.signnInWithGoogle(
