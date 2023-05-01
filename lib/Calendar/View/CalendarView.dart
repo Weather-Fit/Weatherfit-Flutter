@@ -122,7 +122,7 @@ class _CalendarViewState extends State<CalendarView> {
     );
   }
 
-  /* void creatRecord(RecordService recordService) {
+  void creatRecord(RecordService recordService) {
     String newText = createTextController.text.trim();
     if (newText.isNotEmpty) {
       recordService.create(newText, selectedDate);
@@ -138,7 +138,7 @@ class _CalendarViewState extends State<CalendarView> {
         updatedText,
       );
     }
-  }*/
+  }
 
   void showCreateDialog(RecordService recordService) {
     showDialog(

@@ -9,11 +9,10 @@ import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // main 함수에서 async 사용하기 위함
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
-
-  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   runApp(
     MultiProvider(
