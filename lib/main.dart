@@ -7,6 +7,7 @@ import 'Util/calendar_service.dart';
 import 'Login/View/LoginView.dart';
 import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
+import 'app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,8 +71,8 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             currentIndex = newIndex;
           });
         },
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppTheme().lightTheme.colorScheme.primary,
+        unselectedItemColor: AppTheme().lightTheme.colorScheme.outline,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
