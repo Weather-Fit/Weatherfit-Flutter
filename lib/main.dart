@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Calendar/View/CalendarView.dart';
 import 'Util/calendar_service.dart';
 import 'Login/View/LoginView.dart';
@@ -12,11 +13,13 @@ void main() async {
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
 
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
-        ChangeNotifierProvider(create: (context) => RecordService()),
+        ChangeNotifierProvider(create: (context) => RecordService(prefs)),
       ],
       child: const MyApp(),
     ),
