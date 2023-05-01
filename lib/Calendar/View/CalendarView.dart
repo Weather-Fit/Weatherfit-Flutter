@@ -133,7 +133,7 @@ class _CalendarViewState extends State<CalendarView> {
     String newText = createTextController.text.trim();
     String newImage = createTextController.text.trim();
     if (newText.isNotEmpty || newImage.isNotEmpty) {
-      recordService.create(newText, selectedDate, newImage);
+      recordService.create(newText, selectedDate);
       createTextController.text = "";
     }
   }
@@ -141,7 +141,7 @@ class _CalendarViewState extends State<CalendarView> {
   void updateRecord(RecordService recordService, Record record) {
     String updatedText = updateTextController.text.trim();
     if (updatedText.isNotEmpty) {
-      recordService.update(record.createdAt, updatedText, record.image);
+      recordService.update(record.createdAt, updatedText);
     }
   }
 
