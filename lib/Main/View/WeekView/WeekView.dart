@@ -24,7 +24,9 @@ class WeekView extends StatelessWidget {
             (index) => WeekItem(
               day: viewModel.days[index],
               weatherIcon: Image.network(
-                "http://openweathermap.org/img/wn/" + viewModel.afterHour[index].weather!.first.icon! + "@2x.png",
+                "http://openweathermap.org/img/wn/" +
+                    viewModel.afterHour[index].weather!.first.icon! +
+                    "@2x.png",
                 fit: BoxFit.cover,
                 width: 45,
                 height: 40,

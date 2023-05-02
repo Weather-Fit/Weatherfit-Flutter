@@ -18,7 +18,9 @@ class HourlyView extends StatelessWidget {
             (index) => HourlyItem(
               time: viewModel.times[index],
               weatherIcon: Image.network(
-                "http://openweathermap.org/img/wn/" + viewModel.afterHour[index].weather!.first.icon! + "@2x.png",
+                "http://openweathermap.org/img/wn/" +
+                    viewModel.afterHour[index].weather!.first.icon! +
+                    "@2x.png",
                 fit: BoxFit.cover,
                 width: 55,
                 height: 40,

@@ -68,7 +68,8 @@ class Lists {
         weather!.add(new Weather.fromJson(v));
       });
     }
-    clouds = json['clouds'] != null ? new Clouds.fromJson(json['clouds']) : null;
+    clouds =
+        json['clouds'] != null ? new Clouds.fromJson(json['clouds']) : null;
     wind = json['wind'] != null ? new Wind.fromJson(json['wind']) : null;
     visibility = json['visibility'];
     pop = json['pop'];
@@ -259,7 +260,15 @@ class City {
   int? sunrise;
   int? sunset;
 
-  City({this.id, this.name, this.coord, this.country, this.population, this.timezone, this.sunrise, this.sunset});
+  City(
+      {this.id,
+      this.name,
+      this.coord,
+      this.country,
+      this.population,
+      this.timezone,
+      this.sunrise,
+      this.sunset});
 
   City.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -37,8 +37,8 @@ class MainViewModel with ChangeNotifier {
     final lon = position?.longitude;
     final API = dotenv.env['API_KEY'];
 
-    final response = await http
-        .get(Uri.parse('https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$API&lang=kr'));
+    final response = await http.get(Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$API&lang=kr'));
 
     if (response.statusCode == 200) {
       _weather = DayWeatherModel.fromJson(json.decode(response.body));
@@ -56,8 +56,8 @@ class MainViewModel with ChangeNotifier {
     final lon = position?.longitude;
     final API = dotenv.env['API_KEY'];
 
-    final response = await http
-        .get(Uri.parse('https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$API&lang=kr'));
+    final response = await http.get(Uri.parse(
+        'https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$API&lang=kr'));
 
     if (response.statusCode == 200) {
       _weatherList = WeekWeatherModel.fromJson(json.decode(response.body));
@@ -115,25 +115,34 @@ class MainViewModel with ChangeNotifier {
   }
 
   void convertDayWeatherTemp() {
-    _weather?.main?.temp = roundToOneDecimal(kelvinToCelsius(_weather!.main!.temp!));
-    _weather?.main?.tempMax = roundToOneDecimal(kelvinToCelsius(_weather!.main!.tempMax!));
-    _weather?.main?.tempMin = roundToOneDecimal(kelvinToCelsius(_weather!.main!.tempMin!));
+    _weather?.main?.temp =
+        roundToOneDecimal(kelvinToCelsius(_weather!.main!.temp!));
+    _weather?.main?.tempMax =
+        roundToOneDecimal(kelvinToCelsius(_weather!.main!.tempMax!));
+    _weather?.main?.tempMin =
+        roundToOneDecimal(kelvinToCelsius(_weather!.main!.tempMin!));
   }
 
   void convertHourWeatherTemp() {
     _weatherList!.list!.forEach((element) {
-      element.main?.temp = roundToOneDecimal(kelvinToCelsius(element.main!.temp!));
-      element.main?.tempMax = roundToOneDecimal(kelvinToCelsius(element.main!.tempMax!));
-      element.main?.tempMin = roundToOneDecimal(kelvinToCelsius(element.main!.tempMin!));
+      element.main?.temp =
+          roundToOneDecimal(kelvinToCelsius(element.main!.temp!));
+      element.main?.tempMax =
+          roundToOneDecimal(kelvinToCelsius(element.main!.tempMax!));
+      element.main?.tempMin =
+          roundToOneDecimal(kelvinToCelsius(element.main!.tempMin!));
     });
   }
 
   void formatUnixTimestamp() {
     int currentTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     DateFormat dateFormat = DateFormat('HH:mm');
-    afterHour = _weatherList!.list!.where((element) => element.dt! > currentTime).toList();
+    afterHour = _weatherList!.list!
+        .where((element) => element.dt! > currentTime)
+        .toList();
     for (int i = 0; i < 5; i++) {
-      times.add(dateFormat.format(DateTime.fromMillisecondsSinceEpoch(afterHour[i].dt! * 1000)));
+      times.add(dateFormat.format(
+          DateTime.fromMillisecondsSinceEpoch(afterHour[i].dt! * 1000)));
     }
   }
 
@@ -148,9 +157,12 @@ class MainViewModel with ChangeNotifier {
 
     // 각 묶음에서 최소값과 최대값 구하기
     for (int i = 0; i < chunks.length; i++) {
-      Lists min = chunks[i].reduce((a, b) => a.main!.temp! < b.main!.temp! ? a : b);
-      Lists max = chunks[i].reduce((a, b) => a.main!.temp! > b.main!.temp! ? a : b);
-      print('Group ${i + 1}: Min = ${min.main!.temp!}, Max = ${max.main!.temp!}');
+      Lists min =
+          chunks[i].reduce((a, b) => a.main!.temp! < b.main!.temp! ? a : b);
+      Lists max =
+          chunks[i].reduce((a, b) => a.main!.temp! > b.main!.temp! ? a : b);
+      print(
+          'Group ${i + 1}: Min = ${min.main!.temp!}, Max = ${max.main!.temp!}');
 
       minMaxTemp.add([min.main!.temp!, max.main!.temp!]);
     }
@@ -164,7 +176,8 @@ class MainViewModel with ChangeNotifier {
     ];
     DateFormat dateFormat = DateFormat('EEEE, dd');
     for (int i = 0; i < afterDay.length; i++) {
-      days.add(dateFormat.format(DateTime.fromMillisecondsSinceEpoch(afterDay[i].dt! * 1000)));
+      days.add(dateFormat
+          .format(DateTime.fromMillisecondsSinceEpoch(afterDay[i].dt! * 1000)));
     }
   }
 

@@ -10,7 +10,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // main 함수에서 async 사용하기 위함
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
   await dotenv.load(fileName: '.env');
   await Permission.location.request();
   runApp(
@@ -42,7 +43,8 @@ class BottomNavigationBarWidget extends StatefulWidget {
   const BottomNavigationBarWidget({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationBarWidgetState createState() => _BottomNavigationBarWidgetState();
+  _BottomNavigationBarWidgetState createState() =>
+      _BottomNavigationBarWidgetState();
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
