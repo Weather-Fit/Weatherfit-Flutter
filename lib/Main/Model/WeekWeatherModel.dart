@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class WeekWeatherModel {
   String? cod;
   int? message;

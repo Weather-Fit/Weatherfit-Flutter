@@ -20,7 +20,6 @@ class _SignupViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     return Consumer<AuthService>(
       builder: (context, authService, child) {
-        final user = authService.currentUser();
         return Scaffold(
           appBar: AppBar(title: Text("Signup")),
           body: SingleChildScrollView(
@@ -58,9 +57,7 @@ class _SignupViewState extends State<SignupView> {
                   onPressed: () {
                     // 회원가입
                     authService.signUp(
-                      user: UserModel(
-                          email: emailController.text,
-                          password: passwordController.text),
+                      user: UserModel(email: emailController.text, password: passwordController.text),
                       onSuccess: () {
                         // 회원가입 성공
                         Navigator.push(

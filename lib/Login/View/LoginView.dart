@@ -20,7 +20,6 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Consumer<AuthService>(
       builder: (context, authService, child) {
-        final user = authService.currentUser();
         return Scaffold(
           body: Container(
             width: double.infinity,
@@ -36,10 +35,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Text(
                       "WeatherFit",
                       style: TextStyle(
-                          fontSize: 30,
-                          fontFamily: 'Pretendard',
-                          fontWeight: FontWeight.w600,
-                          color: Colors.blue),
+                          fontSize: 30, fontFamily: 'Pretendard', fontWeight: FontWeight.w600, color: Colors.blue),
                     ),
                   ),
                   SizedBox(height: 32),
@@ -47,10 +43,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Text(
                       "Record your outfit coordination\n   based on the temperature",
                       style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Pretendard',
-                          fontWeight: FontWeight.w100,
-                          color: Colors.black),
+                          fontSize: 20, fontFamily: 'Pretendard', fontWeight: FontWeight.w100, color: Colors.black),
                     ),
                   ),
                   SizedBox(height: 32),
@@ -58,8 +51,7 @@ class _LoginViewState extends State<LoginView> {
                   /// 이메일
                   TextField(
                     controller: emailController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: "e-mail"),
+                    decoration: InputDecoration(border: OutlineInputBorder(), labelText: "e-mail"),
                   ),
                   SizedBox(height: 16),
 
@@ -67,22 +59,17 @@ class _LoginViewState extends State<LoginView> {
                   TextField(
                     controller: passwordController,
                     obscureText: true, // 비밀번호 안보이게
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Password"),
+                    decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Password"),
                   ),
                   SizedBox(height: 32),
 
                   /// 로그인 버튼
                   ElevatedButton(
-                    child: Text("Login",
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.w400)),
+                    child: Text("Login", style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400)),
                     onPressed: () {
                       // 로그인
                       authService.signIn(
-                        user: UserModel(
-                            email: emailController.text,
-                            password: passwordController.text),
+                        user: UserModel(email: emailController.text, password: passwordController.text),
                         onSuccess: () {
                           // 로그인 성공
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -92,9 +79,7 @@ class _LoginViewState extends State<LoginView> {
                           // HomePage로 이동
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BottomNavigationBarWidget()),
+                            MaterialPageRoute(builder: (context) => BottomNavigationBarWidget()),
                           );
                         },
                         onError: (err) {
@@ -109,9 +94,7 @@ class _LoginViewState extends State<LoginView> {
 
                   /// 회원가입 버튼
                   ElevatedButton(
-                    child: Text("Sign up",
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.w400)),
+                    child: Text("Sign up", style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400)),
                     onPressed: () {
                       // 회원가입 화면으로 이동
                       Navigator.push(
@@ -125,10 +108,7 @@ class _LoginViewState extends State<LoginView> {
                   Text(
                     '---- or ----',
                     style: TextStyle(
-                        fontFamily: 'Pretendard',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w100,
-                        color: Colors.black),
+                        fontFamily: 'Pretendard', fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black),
                   ),
                   SizedBox(height: 16),
 
@@ -147,9 +127,7 @@ class _LoginViewState extends State<LoginView> {
                           // HomePage로 이동
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BottomNavigationBarWidget()),
+                            MaterialPageRoute(builder: (context) => BottomNavigationBarWidget()),
                           );
                         },
                         onError: (err) {
@@ -165,9 +143,7 @@ class _LoginViewState extends State<LoginView> {
                       width: 20,
                       height: 20,
                     ),
-                    label: Text("Sign In with Google",
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.w400)),
+                    label: Text("Sign In with Google", style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400)),
                   ),
                 ],
               ),

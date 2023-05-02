@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherfit/Main/View/WeekView/WeekItem.dart';
 import 'package:weatherfit/Main/ViewModel/MainViewModel.dart';
-import 'package:weatherfit/app_theme.dart';
 
 class WeekView extends StatelessWidget {
   final MainViewModel viewModel;
