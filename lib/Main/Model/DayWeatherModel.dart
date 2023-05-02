@@ -31,9 +31,13 @@ class DayWeatherModel {
   String? name;
   int? cod;
 
-  factory DayWeatherModel.fromJson(Map<String, dynamic> json) => DayWeatherModel(
+  factory DayWeatherModel.fromJson(Map<String, dynamic> json) =>
+      DayWeatherModel(
         coord: json["coord"] != null ? Coord.fromJson(json["coord"]) : null,
-        weather: json["weather"] != null ? List<Weather>.from(json["weather"].map((x) => Weather.fromJson(x))) : null,
+        weather: json["weather"] != null
+            ? List<Weather>.from(
+                json["weather"].map((x) => Weather.fromJson(x)))
+            : null,
         base: json["base"],
         main: json["main"] != null ? Main.fromJson(json["main"]) : null,
         visibility: json["visibility"],

@@ -7,7 +7,11 @@ class WeekItem extends StatelessWidget {
   final String maxTemp;
   final String minTemp;
 
-  WeekItem({required this.day, required this.weatherIcon, required this.maxTemp, required this.minTemp});
+  WeekItem(
+      {required this.day,
+      required this.weatherIcon,
+      required this.maxTemp,
+      required this.minTemp});
 
   @override
   Widget build(BuildContext context) {

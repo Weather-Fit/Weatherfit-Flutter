@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherfit/Main/View/WeekView/WeekItem.dart';
 import 'package:weatherfit/Main/ViewModel/MainViewModel.dart';
-import 'package:weatherfit/app_theme.dart';
 
 class WeekView extends StatelessWidget {
   final MainViewModel viewModel;
@@ -25,7 +24,9 @@ class WeekView extends StatelessWidget {
             (index) => WeekItem(
               day: viewModel.days[index],
               weatherIcon: Image.network(
-                "http://openweathermap.org/img/wn/" + viewModel.afterHour[index].weather!.first.icon! + "@2x.png",
+                "http://openweathermap.org/img/wn/" +
+                    viewModel.afterHour[index].weather!.first.icon! +
+                    "@2x.png",
                 fit: BoxFit.cover,
                 width: 45,
                 height: 40,
