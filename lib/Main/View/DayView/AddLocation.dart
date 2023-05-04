@@ -11,6 +11,7 @@ class AddLocation extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
         child: Icon(
           Icons.add,
+          color: Colors.white,
           size: 30,
         ),
       ),

@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:weatherfit/Login/View/LoginView.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Calendar/View/CalendarView.dart';
+import 'Main/View/MainView.dart';
 import 'Util/calendar_service.dart';
 import 'Login/View/LoginView.dart';
 import 'Util/auth_service.dart';
@@ -14,7 +18,8 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
-
+  await dotenv.load(fileName: '.env');
+  await Permission.location.request();
   runApp(
     MultiProvider(
       providers: [
@@ -34,7 +39,8 @@ class MyApp extends StatelessWidget {
     final user = context.read<AuthService>().currentUser();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: user == null ? LoginView() : BottomNavigationBarWidget(),
+      // home: user == null ? LoginView() : BottomNavigationBarWidget(),
+      home: user == null ? LoginView() : MainView(),
     );
   }
 }
@@ -118,7 +124,7 @@ class SecondPage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text("두 번째 페이지"),
+        child: MainView(),
       ),
     );
   }

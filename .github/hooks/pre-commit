@@ -1,0 +1,10 @@
+#!/bin/sh
+# Redirect output to stderr.
+exec 1>&2
+# Run Flutter format and analyze
+echo "Running Flutter format..."
+flutter format -n --set-exit-if-changed . || (echo "Flutter format failed. Please fix the issues and commit again."; exit 1)
+echo "Running Flutter analyze..."
+flutter analyze || (echo "Flutter analyze failed. Please fix the issues and commit again."; exit 1)
+# Proceed with commit
+exit 0
