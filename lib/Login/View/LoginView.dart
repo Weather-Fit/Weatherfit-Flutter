@@ -22,6 +22,7 @@ class _LoginViewState extends State<LoginView> {
     return Consumer<AuthService>(
       builder: (context, authService, child) {
         final user = authService.currentUser();
+
         return Scaffold(
           body: Container(
             width: double.infinity,
