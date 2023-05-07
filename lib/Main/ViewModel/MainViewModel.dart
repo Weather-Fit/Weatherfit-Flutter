@@ -22,7 +22,7 @@ class MainViewModel with ChangeNotifier {
 
   List<Lists> afterHour = [];
   List<Lists> afterDay = [];
-  List<List<double>> minMaxTemp = [];
+  List<List<num>> minMaxTemp = [];
 
   List<String> times = [];
   List<String> days = [];
@@ -181,11 +181,11 @@ class MainViewModel with ChangeNotifier {
     }
   }
 
-  double kelvinToCelsius(double kelvin) {
+  double kelvinToCelsius(num kelvin) {
     return kelvin - 273.15;
   }
 
-  double roundToOneDecimal(double value) {
+  double roundToOneDecimal(num value) {
     return (value * 10).roundToDouble() / 10;
   }
 }

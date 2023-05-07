@@ -28,7 +28,7 @@ class DayView extends StatelessWidget {
               Column(
                 children: [
                   CurrentPlace(location: viewModel.location),
-                  CurrentTemp(temp: viewModel.weather!.main?.temp),
+                  CurrentTemp(temp: viewModel.weather!.main!.temp!),
                 ],
               ),
               Column(
