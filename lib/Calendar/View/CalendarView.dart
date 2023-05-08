@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:weatherfit/Calendar/View/RecordView.dart';
 import 'package:weatherfit/app_theme.dart';
 
 import '../../Util/calendar_service.dart';
@@ -85,7 +86,7 @@ class _CalendarViewState extends State<CalendarView> {
                             return ListTile(
                               leading: Icon(Icons.backpack),
                               title: Text(
-                                record.text,
+                                record.record.text,
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: AppTheme()
@@ -102,7 +103,12 @@ class _CalendarViewState extends State<CalendarView> {
                                 ),
                               ),
                               onTap: () {
-                                showUpdateDialog(recordService, record);
+                                //수정위젯 change
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RecordView()),
+                                );
                               },
                               onLongPress: () {
                                 showDeleteDialog(recordService, record);
@@ -121,7 +127,11 @@ class _CalendarViewState extends State<CalendarView> {
             backgroundColor: AppTheme().lightTheme.colorScheme.primary,
             child: Icon(Icons.create),
             onPressed: () {
-              showCreateDialog(recordService);
+              //showCreateDialog(recordService);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RecordView()),
+              );
             },
           ),
         );
@@ -133,126 +143,27 @@ class _CalendarViewState extends State<CalendarView> {
     String newText = createTextController.text.trim();
     String newImage = createTextController.text.trim();
     if (newText.isNotEmpty || newImage.isNotEmpty) {
-      recordService.create(newText, selectedDate);
+      recordService.create(newText, newImage, selectedDate);
       createTextController.text = "";
     }
   }
 
   void updateRecord(RecordService recordService, Record record) {
     String updatedText = updateTextController.text.trim();
+    String updatedImage = updateTextController.text.trim();
     if (updatedText.isNotEmpty) {
-      recordService.update(record.createdAt, updatedText);
+      recordService.update(record.createdAt, updatedText, updatedImage);
     }
-  }
-
-  void showCreateDialog(RecordService recordService) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("작성"),
-          content: TextField(
-            controller: createTextController,
-            autofocus: true,
-            decoration: InputDecoration(
-              hintText: "코디를 작성해주세요.",
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: AppTheme().lightTheme.colorScheme.primary),
-              ),
-            ),
-            onSubmitted: (_) {
-              creatRecord(recordService);
-              Navigator.pop(context);
-            },
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                "취소",
-                style:
-                    TextStyle(color: AppTheme().lightTheme.colorScheme.primary),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                creatRecord(recordService);
-                Navigator.pop(context);
-              },
-              child: Text(
-                "작성",
-                style:
-                    TextStyle(color: AppTheme().lightTheme.colorScheme.primary),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void showUpdateDialog(RecordService recordService, Record record) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        updateTextController.text = record.text;
-        return AlertDialog(
-          title: Text("수정"),
-          content: TextField(
-            autofocus: true,
-            controller: updateTextController,
-            cursorColor: AppTheme().lightTheme.colorScheme.primary,
-            decoration: InputDecoration(
-              hintText: "코디를 작성해주세요.",
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: AppTheme().lightTheme.colorScheme.primary),
-              ),
-            ),
-            onSubmitted: (v) {
-              updateRecord(recordService, record);
-              Navigator.pop(context);
-            },
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                "취소",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: AppTheme().lightTheme.colorScheme.primary,
-                ),
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
-            TextButton(
-              child: Text(
-                "수정",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: AppTheme().lightTheme.colorScheme.primary,
-                ),
-              ),
-              onPressed: () {
-                updateRecord(recordService, record);
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   void showDeleteDialog(RecordService recordService, Record record) {
     showDialog(
       context: context,
       builder: (context) {
-        updateTextController.text = record.text;
+        updateTextController.text = record.record.text;
         return AlertDialog(
           title: Text("삭제"),
-          content: Text('"${record.text}"를 삭제하시겠습니까?'),
+          content: Text('"${record.record.text}"를 삭제하시겠습니까?'),
           actions: [
             TextButton(
               child: Text(

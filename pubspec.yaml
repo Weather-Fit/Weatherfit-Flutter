@@ -27,6 +27,7 @@ dependencies:
   geolocator: ^7.6.2
   permission_handler: ^8.3.0
   geocoding: ^2.0.1
+  firebase_database: ^10.1.2
 
 dev_dependencies:
   flutter_test:
@@ -58,4 +59,4 @@ flutter:
   uses-material-design: true
   assets:
     - .env
-    - asset/images/ic_google.png
+    - asset/images/

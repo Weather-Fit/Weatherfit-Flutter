@@ -1,8 +1,8 @@
 import 'package:weatherfit/Login/Model/UserModel.dart';
 
 class CalendarModel {
-  final UserModel userModel;
-  final String record;
+  final String text;
+  final String image;
 
-  CalendarModel({required this.userModel, required this.record});
+  CalendarModel({required this.text, required this.image});
 }
