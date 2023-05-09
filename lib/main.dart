@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
     final user = context.read<AuthService>().currentUser();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: user == null ? LoginView() : BottomNavigationBarWidget(),
-      home: user == null ? LoginView() : MainView(),
+      home: user == null ? LoginView() : BottomNavigationBarWidget(),
+      // home: user == null ? LoginView() : MainView(),
     );
   }
 }
@@ -48,7 +48,7 @@ class BottomNavigationBarWidget extends StatefulWidget {
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         index: currentIndex, // index 순서에 해당하는 child를 맨 위에 보여줌
         children: [
           FirstPage(),
-          SecondPage(),
+          MainView(),
           ThirdPage(),
         ],
       ),

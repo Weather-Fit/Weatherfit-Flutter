@@ -53,4 +53,5 @@ flutter:
   uses-material-design: true
   assets:
     - .env
-    - asset/images/ic_google.png
+    - assets/ic_google.png
+    - assets/

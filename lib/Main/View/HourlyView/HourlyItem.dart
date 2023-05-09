@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weatherfit/Util/Widget/RecommendPopupView.dart';
 import 'package:weatherfit/app_theme.dart';
 
 class HourlyItem extends StatelessWidget {
@@ -33,13 +34,16 @@ class HourlyItem extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 4, 0, 0),
-                child: Text(
-                  temp,
-                  style: AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
-                        color: Color.fromARGB(220, 255, 255, 255),
-                        fontWeight: FontWeight.w800,
-                      ),
-                  textAlign: TextAlign.left,
+                child: RecommendPopupView(
+                  temp: temp,
+                  child: Text(
+                    temp,
+                    style: AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
+                          color: Color.fromARGB(220, 255, 255, 255),
+                          fontWeight: FontWeight.w800,
+                        ),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ),
               weatherIcon,

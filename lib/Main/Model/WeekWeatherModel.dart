@@ -107,10 +107,10 @@ class Lists {
 }
 
 class Main {
-  double? temp;
-  dynamic feelsLike;
-  double? tempMin;
-  double? tempMax;
+  num? temp;
+  num? feelsLike;
+  num? tempMin;
+  num? tempMax;
   int? pressure;
   int? seaLevel;
   int? grndLevel;
