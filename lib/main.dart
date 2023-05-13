@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:weatherfit/Login/View/LoginView.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Main/View/MainView.dart';
+import 'package:weatherfit/Record/View/Record.dart';
 import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -145,7 +146,7 @@ class ThirdPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("세 번째 페이지"),
+        child: Record(),
       ),
     );
   }
