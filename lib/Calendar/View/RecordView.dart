@@ -95,11 +95,18 @@ class _RecordViewState extends State<RecordView> {
   }
 }
 
-class ImageGrid extends StatelessWidget {
+class ImageGrid extends StatefulWidget {
   final List<String> imagePaths;
   final TextEditingController imageController;
 
   ImageGrid({required this.imagePaths, required this.imageController});
+
+  @override
+  _ImageGridState createState() => _ImageGridState();
+}
+
+class _ImageGridState extends State<ImageGrid> {
+  int _selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -110,12 +117,24 @@ class ImageGrid extends StatelessWidget {
           crossAxisSpacing: 4.0,
           mainAxisSpacing: 4.0,
         ),
-        itemCount: imagePaths.length,
+        itemCount: widget.imagePaths.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            child: Image.asset(imagePaths[index]),
+            child: Stack(
+              children: [
+                Image.asset(widget.imagePaths[index]),
+                if (_selectedIndex == index)
+                  Container(
+                    color: Colors.black26,
+                    child: Icon(Icons.check, color: Colors.white),
+                  ),
+              ],
+            ),
             onTap: () {
-              imageController.text = imagePaths[index];
+              widget.imageController.text = widget.imagePaths[index];
+              setState(() {
+                _selectedIndex = index;
+              });
             },
           );
         },
