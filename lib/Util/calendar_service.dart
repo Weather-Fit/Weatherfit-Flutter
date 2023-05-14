@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import '../Calendar/Model/CalendarModel.dart';
 
@@ -17,15 +17,14 @@ class Record {
 }
 
 class RecordService extends ChangeNotifier {
-  List<Record> recordList = [];
+  final recordCollection = FirebaseFirestore.instance.collection('calendar');
 
-  List<Record> getByDate(DateTime date) {
-    return recordList
-        .where((record) => isSameDay(date, record.createdAt))
-        .toList();
+  Future<QuerySnapshot> read(String uid) async {
+    return recordCollection.where('uid', isEqualTo: uid).get();
   }
 
-  void create(String text, String image, DateTime selectedDate) {
+  void create(
+      String text, String image, String uid, DateTime selectedDate) async {
     DateTime now = DateTime.now();
 
     DateTime createdAt = DateTime(
@@ -37,24 +36,29 @@ class RecordService extends ChangeNotifier {
       now.second,
     );
 
-    Record record = Record(
-      record: CalendarModel(text: text, image: image),
-      createdAt: createdAt,
-    );
-    recordList.add(record);
+    await recordCollection
+        .add({'uid': uid, 'text': text, 'image': image, 'creatAt': createdAt});
     notifyListeners();
   }
 
-  void update(DateTime createdAt, String newContent, String selectImage) {
-    Record record =
-        recordList.firstWhere((record) => record.createdAt == createdAt);
-
-    record.record = CalendarModel(text: newContent, image: selectImage);
+  void update(String creatAt, String text, String image) async {
+    await recordCollection.doc(creatAt).update({
+      'text': text,
+      'image': image,
+    });
     notifyListeners();
   }
 
-  void delete(DateTime createdAt) {
-    recordList.removeWhere((record) => record.createdAt == createdAt);
+  void delete(String creatAt) async {
+    await recordCollection.doc(creatAt).delete();
     notifyListeners();
+  }
+
+  List<Record> recordList = [];
+
+  List<Record> getByDate(DateTime date) {
+    return recordList
+        .where((record) => isSameDay(date, record.createdAt))
+        .toList();
   }
 }

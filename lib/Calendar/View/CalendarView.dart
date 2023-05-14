@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +7,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:weatherfit/Calendar/View/RecordView.dart';
 import 'package:weatherfit/app_theme.dart';
 
+import '../../Util/auth_service.dart';
 import '../../Util/calendar_service.dart';
 
 class CalendarView extends StatefulWidget {
@@ -20,12 +22,10 @@ class _CalendarViewState extends State<CalendarView> {
 
   DateTime selectedDate = DateTime.now();
 
-  TextEditingController createTextController = TextEditingController();
-
-  TextEditingController updateTextController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    final authService = context.read<AuthService>();
+    final user = authService.currentUser()!;
     return Consumer<RecordService>(
       builder: (context, recordService, child) {
         List<Record> recordList = recordService.getByDate(selectedDate);
@@ -68,57 +68,40 @@ class _CalendarViewState extends State<CalendarView> {
                 ),
                 Divider(height: 1),
                 Expanded(
-                  child: recordList.isEmpty
-                      ? Center(
-                          child: Text(
-                            "코디를 작성해주세요.",
-                            style: TextStyle(
-                              color: AppTheme().lightTheme.colorScheme.outline,
-                              fontSize: 18,
-                            ),
-                          ),
-                        )
-                      : ListView.separated(
-                          itemCount: recordList.length,
+                  child: FutureBuilder<QuerySnapshot>(
+                      future: recordService.read(user.uid),
+                      builder: (context, snapshot) {
+                        final documents = snapshot.data?.docs ?? [];
+                        if (documents.isEmpty) {
+                          return Center(child: Text("코디를 작성해주세요."));
+                        }
+                        return ListView.builder(
+                          itemCount: documents.length,
                           itemBuilder: (context, index) {
-                            int i = recordList.length - index - 1;
-                            Record record = recordList[i];
+                            final doc = documents[index];
+                            String text = doc.get('text');
+                            String image = doc.get('image');
                             return ListTile(
-                              leading: Icon(Icons.backpack),
+                              leading: Image.asset(image),
                               title: Text(
-                                record.record.text,
+                                text,
                                 style: TextStyle(
-                                    fontSize: 15,
-                                    color: AppTheme()
-                                        .lightTheme
-                                        .colorScheme
-                                        .onSurfaceVariant),
-                              ),
-                              trailing: Text(
-                                DateFormat('kk:mm').format(record.createdAt),
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color:
-                                      AppTheme().lightTheme.colorScheme.outline,
+                                  fontSize: 24,
                                 ),
                               ),
+                              trailing: IconButton(
+                                icon: Icon(CupertinoIcons.delete),
+                                onPressed: () {
+                                  recordService.delete(doc.id);
+                                },
+                              ),
                               onTap: () {
-                                //수정위젯 change
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RecordView()),
-                                );
-                              },
-                              onLongPress: () {
-                                showDeleteDialog(recordService, record);
+                                recordService.update(doc.id, text, image);
                               },
                             );
                           },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return Divider(height: 1);
-                          },
-                        ),
+                        );
+                      }),
                 ),
               ],
             ),
@@ -127,68 +110,12 @@ class _CalendarViewState extends State<CalendarView> {
             backgroundColor: AppTheme().lightTheme.colorScheme.primary,
             child: Icon(Icons.create),
             onPressed: () {
-              //showCreateDialog(recordService);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RecordView()),
               );
             },
           ),
-        );
-      },
-    );
-  }
-
-  void creatRecord(RecordService recordService) {
-    String newText = createTextController.text.trim();
-    String newImage = createTextController.text.trim();
-    if (newText.isNotEmpty || newImage.isNotEmpty) {
-      recordService.create(newText, newImage, selectedDate);
-      createTextController.text = "";
-    }
-  }
-
-  void updateRecord(RecordService recordService, Record record) {
-    String updatedText = updateTextController.text.trim();
-    String updatedImage = updateTextController.text.trim();
-    if (updatedText.isNotEmpty) {
-      recordService.update(record.createdAt, updatedText, updatedImage);
-    }
-  }
-
-  void showDeleteDialog(RecordService recordService, Record record) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        updateTextController.text = record.record.text;
-        return AlertDialog(
-          title: Text("삭제"),
-          content: Text('"${record.record.text}"를 삭제하시겠습니까?'),
-          actions: [
-            TextButton(
-              child: Text(
-                "취소",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: AppTheme().lightTheme.colorScheme.primary,
-                ),
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
-            TextButton(
-              child: Text(
-                "삭제",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: AppTheme().lightTheme.colorScheme.primary,
-                ),
-              ),
-              onPressed: () {
-                recordService.delete(record.createdAt);
-                Navigator.pop(context);
-              },
-            ),
-          ],
         );
       },
     );
