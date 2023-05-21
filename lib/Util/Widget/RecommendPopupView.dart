@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weatherfit/Util/Widget/Closet.dart';
+import 'package:weatherfit/Util/Widget/Clothes.dart';
 import 'package:weatherfit/app_theme.dart';
 
 class RecommendPopupView extends StatelessWidget {
