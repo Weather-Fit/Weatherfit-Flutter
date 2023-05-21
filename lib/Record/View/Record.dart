@@ -16,6 +16,16 @@ class Record extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TempDropdown(),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(0, 0, 32, 16),
+              alignment: Alignment.centerRight,
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
             RecordScollView(),
           ],
         ),
