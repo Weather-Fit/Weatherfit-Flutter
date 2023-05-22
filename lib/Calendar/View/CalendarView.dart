@@ -23,6 +23,12 @@ class _CalendarViewState extends State<CalendarView> {
   DateTime selectedDate = DateTime.now();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final authService = context.read<AuthService>();
     final user = authService.currentUser()!;
@@ -44,8 +50,8 @@ class _CalendarViewState extends State<CalendarView> {
                       calendarFormat = format;
                     });
                   },
-                  eventLoader: (date) {
-                    return recordService.getByDate(date);
+                  eventLoader: (day) {
+                    return recordService.getByDate(day);
                   },
                   calendarStyle: CalendarStyle(
                       todayTextStyle: TextStyle(color: Colors.black),
@@ -86,7 +92,13 @@ class _CalendarViewState extends State<CalendarView> {
                               title: Text(
                                 text,
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 15,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w100,
+                                  color: AppTheme()
+                                      .lightTheme
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                 ),
                               ),
                               trailing: IconButton(

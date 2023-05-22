@@ -11,7 +11,12 @@ import '../../app_theme.dart';
 import '../Model/CalendarModel.dart';
 
 class RecordView extends StatefulWidget {
-  const RecordView({Key? key}) : super(key: key);
+  const RecordView({
+    Key? key,
+    /*required DateTime selectedDate*/
+  }) : super(key: key);
+
+  DateTime get selectedDate => this.selectedDate;
 
   @override
   State<RecordView> createState() => _RecordViewState();
@@ -20,7 +25,7 @@ class RecordView extends StatefulWidget {
 class _RecordViewState extends State<RecordView> {
   TextEditingController textController = TextEditingController();
   TextEditingController imageController = TextEditingController();
-  DateTime selectedDate = DateTime.now();
+  DateTime currentTime = DateTime.now();
 
   final List<String> _imagePaths = [
     'asset/images/img_hoodie_black.png',
@@ -79,8 +84,13 @@ class _RecordViewState extends State<RecordView> {
                   onPressed: () {
                     if (textController.text.isNotEmpty &&
                         imageController.text.isNotEmpty) {
-                      recordService.create(textController.text,
-                          imageController.text, user.uid, selectedDate);
+                      recordService.create(
+                          textController.text,
+                          imageController.text,
+                          user.uid,
+                          //widget.selectedDate,
+                          currentTime,
+                          currentTime);
                     }
                     Navigator.pop(context);
                   },
