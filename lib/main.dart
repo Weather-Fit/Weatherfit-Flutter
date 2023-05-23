@@ -72,7 +72,7 @@ class OnboardingPage extends StatelessWidget {
             ),
           ),
           PageViewModel(
-            title: "Title2",
+            title: "기온에 적합한 코디 확인",
             bodyWidget: Text("body2"),
           ),
           PageViewModel(

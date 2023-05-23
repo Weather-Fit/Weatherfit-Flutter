@@ -81,15 +81,15 @@ class RecordService extends ChangeNotifier {
     return recordCollection.where('uid', isEqualTo: uid).get();
   }
 
-  void create(String text, String image, String uid, DateTime selectedDate,
-      DateTime currentTime) async {
+  void create(String text, String image, String uid, DateTime? selectedDate,
+      DateTime? currentTime, int? selectTemperature) async {
     currentTime = DateTime.now();
 
-    DateTime createdAt = DateTime(
-      selectedDate.year,
+    DateTime? createdAt = DateTime(
+      selectedDate!.year,
       selectedDate.month,
       selectedDate.day,
-      currentTime.hour,
+      currentTime!.hour,
       currentTime.minute,
       currentTime.second,
     );
@@ -99,7 +99,8 @@ class RecordService extends ChangeNotifier {
       'text': text,
       'image': image,
       'selectedDate': selectedDate,
-      'creatAt': createdAt
+      'creatAt': createdAt,
+      'selectTemperature': selectTemperature
     });
     notifyListeners();
   }

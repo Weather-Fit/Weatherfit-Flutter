@@ -33,10 +33,10 @@ class _RecordViewState extends State<RecordView> {
     'asset/images/img_moostang.png',
     'asset/images/img_padding_black.png',
     'asset/images/img_ops_black.png',
-    'asset/images/img_ops_pink.png',
+    'asset/images/img_ops_long_pink.png',
     'asset/images/img_padding_navy.png',
     'asset/images/img_vest_grey.png',
-    'asset/images/img_shirt_sora.png',
+    'asset/images/img_coat_black.png',
   ];
 
   @override
@@ -90,7 +90,8 @@ class _RecordViewState extends State<RecordView> {
                           user.uid,
                           //widget.selectedDate,
                           currentTime,
-                          currentTime);
+                          currentTime,
+                          null);
                     }
                     Navigator.pop(context);
                   },
