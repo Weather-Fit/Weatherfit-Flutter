@@ -22,7 +22,7 @@ class _TempDropdownState extends State<TempDropdown> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

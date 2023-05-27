@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:weatherfit/Main/Model/DayWeatherModel.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherfit/Main/Model/WeekWeatherModel.dart';
+import 'package:weatherfit/Main/View/DayView/CItySearchDelegate.dart';
 
 class MainViewModel with ChangeNotifier {
   MainViewModel() {
@@ -29,6 +30,30 @@ class MainViewModel with ChangeNotifier {
   String currentTime = "";
   String location = "";
   Position? position;
+
+  void searchCity(BuildContext context) async {
+    final result = await showSearch<Location?>(
+      context: context,
+      delegate: CitySearchDelegate(),
+    );
+
+    if (result != null) {
+      // Do something with the result (latitude, longitude of the searched city)
+      print('Result: $result');
+      this.position = Position(
+          longitude: result.longitude,
+          latitude: result.latitude,
+          timestamp: result.timestamp,
+          accuracy: position!.accuracy,
+          altitude: position!.altitude,
+          heading: position!.heading,
+          speed: position!.speed,
+          speedAccuracy: position!.speedAccuracy);
+      fetchDayWeather();
+      fetchWeekWeather();
+      getCurrentPositionName(position);
+    }
+  }
 
   Future<void> fetchDayWeather() async {
     await requestLocationPermission();
@@ -76,30 +101,37 @@ class MainViewModel with ChangeNotifier {
       PermissionStatus result = await Permission.location.request();
       if (result.isGranted) {
         await getCurrentPosition();
+        await getCurrentPositionName(position);
       } else {
         print("위치 권한이 거부되었습니다.");
       }
     } else if (status.isGranted) {
       await getCurrentPosition();
+      await getCurrentPositionName(position);
     }
   }
 
   Future<void> getCurrentPosition() async {
-    position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
+    if (position == null) {
+      position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+    }
+  }
 
+  Future<void> getCurrentPositionName(Position? position) async {
     try {
       // 좌표를 주소로 변환
       List<Placemark> placemarks = await placemarkFromCoordinates(
         position!.latitude,
-        position!.longitude,
+        position.longitude,
         localeIdentifier: 'ko_KR', // 한글 주소를 얻기 위해 로캘 설정
       );
 
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
         location = "${placemark.locality} ${placemark.subLocality}";
+        print(location);
       } else {
         print("주소를 찾을 수 없습니다.");
       }
@@ -140,6 +172,7 @@ class MainViewModel with ChangeNotifier {
     afterHour = _weatherList!.list!
         .where((element) => element.dt! > currentTime)
         .toList();
+    times = [];
     for (int i = 0; i < 5; i++) {
       times.add(dateFormat.format(
           DateTime.fromMillisecondsSinceEpoch(afterHour[i].dt! * 1000)));

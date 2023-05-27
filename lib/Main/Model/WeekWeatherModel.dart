@@ -1,7 +1,7 @@
 class WeekWeatherModel {
   String? cod;
-  int? message;
-  int? cnt;
+  num? message;
+  num? cnt;
   List<Lists>? list;
   City? city;
 
@@ -41,7 +41,7 @@ class Lists {
   List<Weather>? weather;
   Clouds? clouds;
   Wind? wind;
-  int? visibility;
+  num? visibility;
   dynamic pop;
   Rain? rain;
   Sys? sys;
@@ -111,10 +111,10 @@ class Main {
   num? feelsLike;
   num? tempMin;
   num? tempMax;
-  int? pressure;
-  int? seaLevel;
-  int? grndLevel;
-  int? humidity;
+  num? pressure;
+  num? seaLevel;
+  num? grndLevel;
+  num? humidity;
   dynamic tempKf;
 
   Main(
@@ -219,7 +219,7 @@ class Wind {
 }
 
 class Rain {
-  double? d3h;
+  num? d3h;
 
   Rain({this.d3h});
 
