@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +12,7 @@ import 'package:weatherfit/app_theme.dart';
 
 import '../../Util/auth_service.dart';
 import '../../Util/calendar_service.dart';
+import '../ViewModel/CalendarViewModel.dart';
 
 class CalendarView extends StatefulWidget {
   const CalendarView({Key? key}) : super(key: key);
@@ -19,6 +23,7 @@ class CalendarView extends StatefulWidget {
 
 class _CalendarViewState extends State<CalendarView> {
   CalendarFormat calendarFormat = CalendarFormat.month;
+  CalendarViewModel calendarViewModel = CalendarViewModel();
 
   DateTime selectedDate = DateTime.now();
 
@@ -50,9 +55,9 @@ class _CalendarViewState extends State<CalendarView> {
                       calendarFormat = format;
                     });
                   },
-                  eventLoader: (day) {
-                    return recordService.getByDate(day);
-                  },
+                  // eventLoader: (day) {
+                  //   return calendarViewModel.getDataByDate(user.uid, day);
+                  // },
                   calendarStyle: CalendarStyle(
                       todayTextStyle: TextStyle(color: Colors.black),
                       todayDecoration: BoxDecoration(
@@ -75,7 +80,9 @@ class _CalendarViewState extends State<CalendarView> {
                 Divider(height: 1),
                 Expanded(
                   child: FutureBuilder<QuerySnapshot>(
-                      future: recordService.read(user.uid),
+                      future: recordService.read(
+                        user.uid,
+                      ),
                       builder: (context, snapshot) {
                         final documents = snapshot.data?.docs ?? [];
                         if (documents.isEmpty) {
