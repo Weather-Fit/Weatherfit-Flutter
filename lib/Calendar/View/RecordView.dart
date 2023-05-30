@@ -82,7 +82,7 @@ class _RecordViewState extends State<RecordView> {
                     null,
                   );
                 }
-                Navigator.pop(context);
+                Navigator.pop(context, true);
               },
               child: Text("완료", style: TextStyle(fontSize: 21)),
             )
