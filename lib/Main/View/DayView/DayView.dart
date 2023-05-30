@@ -20,15 +20,16 @@ class DayView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AddLocation(),
+          AddLocation(viewModel: viewModel),
           CurrentTime(time: viewModel.currentTime),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
-                  CurrentPlace(location: viewModel.location),
-                  CurrentTemp(temp: viewModel.weather!.main?.temp),
+                  CurrentPlace(
+                      location: viewModel.location, viewModel: viewModel),
+                  CurrentTemp(temp: viewModel.weather!.main!.temp!),
                 ],
               ),
               Column(

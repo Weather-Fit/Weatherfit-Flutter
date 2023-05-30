@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:weatherfit/Main/ViewModel/MainViewModel.dart';
 
 class AddLocation extends StatelessWidget {
-  const AddLocation({super.key});
+  final MainViewModel viewModel;
+  AddLocation({required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -9,10 +11,12 @@ class AddLocation extends StatelessWidget {
       alignment: Alignment.topRight,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-        child: Icon(
-          Icons.add,
+        child: IconButton(
+          onPressed: () {
+            viewModel.fetchDayWeather();
+          },
+          icon: Icon(Icons.refresh),
           color: Colors.white,
-          size: 30,
         ),
       ),
     );

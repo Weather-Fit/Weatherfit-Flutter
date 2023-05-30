@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:weatherfit/Main/ViewModel/MainViewModel.dart';
 import 'package:weatherfit/app_theme.dart';
 
 class CurrentPlace extends StatelessWidget {
   final location;
-  const CurrentPlace({required this.location});
+  final MainViewModel viewModel;
+  const CurrentPlace({required this.location, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
+    return TextButton(
+      onPressed: () {
+        viewModel.searchCity(context);
+      },
       child: Text(
         location,
         style: AppTheme().lightTheme.textTheme.bodyLarge?.copyWith(

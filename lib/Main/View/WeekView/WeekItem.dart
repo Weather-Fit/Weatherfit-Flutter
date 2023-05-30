@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weatherfit/Util/Widget/RecommendPopupView.dart';
 import 'package:weatherfit/app_theme.dart';
 
 class WeekItem extends StatelessWidget {
@@ -35,19 +36,27 @@ class WeekItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   weatherIcon,
-                  Text(
-                    maxTemp,
-                    style: AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
-                          color: Color.fromARGB(220, 255, 255, 255),
-                          fontWeight: FontWeight.w700,
-                        ),
+                  RecommendPopupView(
+                    temp: maxTemp,
+                    child: Text(
+                      maxTemp,
+                      style:
+                          AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
+                                color: Color.fromARGB(220, 255, 255, 255),
+                                fontWeight: FontWeight.w700,
+                              ),
+                    ),
                   ),
-                  Text(
-                    minTemp,
-                    style: AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
-                          color: Color.fromARGB(180, 255, 255, 255),
-                          fontWeight: FontWeight.w700,
-                        ),
+                  RecommendPopupView(
+                    temp: minTemp,
+                    child: Text(
+                      minTemp,
+                      style:
+                          AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
+                                color: Color.fromARGB(180, 255, 255, 255),
+                                fontWeight: FontWeight.w700,
+                              ),
+                    ),
                   )
                 ],
               ),
