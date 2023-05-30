@@ -39,27 +39,27 @@ flutter:
   fonts:
     - family: Pretendart
       fonts:
-        - asset: assets/fonts/Pretendard-Black.otf
+        - asset: asset/fonts/Pretendard-Black.otf
           weight: 900
-        - asset: assets/fonts/Pretendard-ExtraBold.otf
+        - asset: asset/fonts/Pretendard-ExtraBold.otf
           weight: 800
-        - asset: assets/fonts/Pretendard-Bold.otf
+        - asset: asset/fonts/Pretendard-Bold.otf
           weight: 700
-        - asset: assets/fonts/Pretendard-SemiBold.otf
+        - asset: asset/fonts/Pretendard-SemiBold.otf
           weight: 600
-        - asset: assets/fonts/Pretendard-Medium.otf
+        - asset: asset/fonts/Pretendard-Medium.otf
           weight: 500
-        - asset: assets/fonts/Pretendard-Regular.otf
+        - asset: asset/fonts/Pretendard-Regular.otf
           weight: 400
-        - asset: assets/fonts/Pretendard-Light.otf
+        - asset: asset/fonts/Pretendard-Light.otf
           weight: 300
-        - asset: assets/fonts/Pretendard-ExtraLight.otf
+        - asset: asset/fonts/Pretendard-ExtraLight.otf
           weight: 200
-        - asset: assets/fonts/Pretendard-Thin.otf
+        - asset: asset/fonts/Pretendard-Thin.otf
           weight: 100
   uses-material-design: true
   assets:
     - .env
     - asset/images/
-    - assets/ic_google.png
-    - assets/
+    - asset/ic_google.png
+    - asset/

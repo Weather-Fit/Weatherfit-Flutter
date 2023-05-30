@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Login/Model/UserModel.dart';
 import 'package:weatherfit/Signup/View/SignupView.dart';
+import 'package:weatherfit/Util/BottomNavigationBarWidget.dart';
 import 'package:weatherfit/app_theme.dart';
 import '../../Util/auth_service.dart';
-import '../../main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -177,7 +177,7 @@ class _LoginViewState extends State<LoginView> {
                       );
                     },
                     icon: Image.asset(
-                      'assets/images/ic_google.png',
+                      'asset/ic_google.png',
                       width: 20,
                       height: 20,
                     ),
