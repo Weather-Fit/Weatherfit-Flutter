@@ -13,15 +13,22 @@ dependencies:
   flutter_dotenv: ^5.0.2
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
-  provider: ^6.0.5
+
   firebase_auth: ^4.4.1
   firebase_core: ^2.9.0
   cloud_firestore: ^4.5.1
   google_sign_in: ^6.1.0
+  table_calendar: ^3.0.8
+  provider: ^6.0.5
+  shared_preferences: ^2.1.0
+  image_picker: ^0.8.7+4
+
   http: ^0.13.3
   geolocator: ^7.6.2
   permission_handler: ^8.3.0
   geocoding: ^2.0.1
+  firebase_database: ^10.1.2
+  introduction_screen: ^3.1.8
 
 dev_dependencies:
   flutter_test:
@@ -53,5 +60,6 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - asset/images/
     - assets/ic_google.png
     - assets/

@@ -111,10 +111,4 @@ class AuthService extends ChangeNotifier {
       onError(e.toString());
     }
   }
-
-  //사용자 정보 가져오려면
-  /* 
-  final String? uid = authResult.user?.uid;
-  final String? email = authResult.user?.email;
-  */
 }
