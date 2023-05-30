@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>사용자의 위치 정보를 받아오려고 합니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자의 위치 정보를 받아오려고 합니다.</string>
+	<key>CLIENT_ID</key>
+	<string>819583882098-s6r62dcekee4iemilk36l2bj83q1iseg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.819583882098-s6r62dcekee4iemilk36l2bj83q1iseg</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>819583882098-u9oh68e4jl3kcq1msri107ng1u6e2m7i.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyACzbfPgEHwUg_7V9jS_OoiDlppvkDHjus</string>
+	<key>GCM_SENDER_ID</key>
+	<string>819583882098</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.weatherfit</string>
+	<key>PROJECT_ID</key>
+	<string>weatherfit-be9a8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>weatherfit-be9a8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:819583882098:ios:34bd3ac420ae1990f543eb</string>
+</dict>
+</plist>

@@ -1,0 +1,7 @@
+pre-commit:
+  parallel: true
+  commands:
+    check-dart-format:
+      run: dart format --set-exit-if-changed lib
+    analyze-dart-code:
+      run: flutter analyze .

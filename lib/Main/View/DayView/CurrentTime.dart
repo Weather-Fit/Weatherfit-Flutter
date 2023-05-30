@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:weatherfit/app_theme.dart';
 
 class CurrentTime extends StatelessWidget {
-  const CurrentTime({super.key});
+  final time;
+  const CurrentTime({required this.time});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: Text(
-        "오후 4:30",
+        time,
         style: AppTheme().lightTheme.textTheme.bodyMedium?.copyWith(
-              color: Colors.white,
+              fontSize: 18,
+              color: Color.fromARGB(170, 255, 255, 255),
             ),
       ),
     );

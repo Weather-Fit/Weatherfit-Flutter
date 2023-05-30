@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:weatherfit/Util/Widget/RecommendPopupView.dart';
 import 'package:weatherfit/app_theme.dart';
 
 class WeekItem extends StatelessWidget {
   final String day;
-  final Icon weatherIcon;
-  final String maxMintemp;
+  final Image weatherIcon;
+  final String maxTemp;
+  final String minTemp;
 
-  WeekItem({required this.day, required this.weatherIcon, required this.maxMintemp});
+  WeekItem(
+      {required this.day,
+      required this.weatherIcon,
+      required this.maxTemp,
+      required this.minTemp});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +24,43 @@ class WeekItem extends StatelessWidget {
           children: [
             Text(
               day,
-              style: AppTheme().lightTheme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+              style: AppTheme().lightTheme.textTheme.bodyMedium?.copyWith(
+                    color: Color.fromARGB(180, 255, 255, 255),
+                    fontWeight: FontWeight.w300,
+                    fontSize: 16,
+                  ),
             ),
-            weatherIcon,
-            Text(maxMintemp),
+            Container(
+              width: 140,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  weatherIcon,
+                  RecommendPopupView(
+                    temp: maxTemp,
+                    child: Text(
+                      maxTemp,
+                      style:
+                          AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
+                                color: Color.fromARGB(220, 255, 255, 255),
+                                fontWeight: FontWeight.w700,
+                              ),
+                    ),
+                  ),
+                  RecommendPopupView(
+                    temp: minTemp,
+                    child: Text(
+                      minTemp,
+                      style:
+                          AppTheme().lightTheme.textTheme.bodySmall?.copyWith(
+                                color: Color.fromARGB(180, 255, 255, 255),
+                                fontWeight: FontWeight.w700,
+                              ),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
