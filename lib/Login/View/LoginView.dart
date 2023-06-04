@@ -176,7 +176,7 @@ class _LoginViewState extends State<LoginView> {
                       );
                     },
                     icon: Image.asset(
-                      'asset/images/ic_google.png',
+                      'assets/images/ic_google.png',
                       width: 20,
                       height: 20,
                     ),

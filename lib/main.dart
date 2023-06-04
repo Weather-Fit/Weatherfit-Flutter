@@ -4,7 +4,14 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weatherfit/Login/View/LoginView.dart';
 import 'package:provider/provider.dart';
+
 import 'package:weatherfit/Main/View/MainView.dart';
+
+import 'Calendar/View/CalendarView.dart';
+import 'Util/calendar_service.dart';
+
+import 'package:weatherfit/Record/View/Record.dart';
+
 import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -54,7 +61,7 @@ class BottomNavigationBarWidget extends StatefulWidget {
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +69,8 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       body: IndexedStack(
         index: currentIndex, // index 순서에 해당하는 child를 맨 위에 보여줌
         children: [
-          FirstPage(),
-          SecondPage(),
+          CalendarView(),
+          MainView(),
           ThirdPage(),
         ],
       ),
@@ -151,7 +158,7 @@ class ThirdPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("세 번째 페이지"),
+        child: Record(),
       ),
     );
   }
