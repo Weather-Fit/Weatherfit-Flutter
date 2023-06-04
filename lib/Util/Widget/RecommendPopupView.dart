@@ -25,10 +25,10 @@ class RecommendPopupView extends StatelessWidget {
             child: Column(
               children: [
                 Clothes(
-                    clothes: "assets/vest.png", clothesName: "조끼 패딩 + 기모 바지"),
+                    clothes: "asset/vest.png", clothesName: "조끼 패딩 + 기모 바지"),
                 Clothes(
-                    clothes: "assets/raincoat.png", clothesName: "레인 코트 + 청바지"),
-                Clothes(clothes: "assets/hoodie.png", clothesName: "후드티 + 슬랙스"),
+                    clothes: "asset/raincoat.png", clothesName: "레인 코트 + 청바지"),
+                Clothes(clothes: "asset/hoodie.png", clothesName: "후드티 + 슬랙스"),
               ],
             ),
           ),

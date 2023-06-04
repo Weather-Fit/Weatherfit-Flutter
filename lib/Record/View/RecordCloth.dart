@@ -3,8 +3,8 @@ import 'package:weatherfit/Record/View/RecordScrollView.dart';
 import 'package:weatherfit/Record/View/TempDropdown.dart';
 import 'package:weatherfit/app_theme.dart';
 
-class Record extends StatelessWidget {
-  const Record({super.key});
+class RecordCloth extends StatelessWidget {
+  const RecordCloth({super.key});
 
   @override
   Widget build(BuildContext context) {

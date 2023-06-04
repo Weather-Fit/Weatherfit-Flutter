@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherfit/Login/Model/UserModel.dart';
 import 'package:weatherfit/Signup/View/SignupView.dart';
+import 'package:weatherfit/Util/BottomNavigationBarWidget.dart';
 import 'package:weatherfit/app_theme.dart';
 import '../../Util/auth_service.dart';
-import '../../main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -21,8 +21,6 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Consumer<AuthService>(
       builder: (context, authService, child) {
-        final user = authService.currentUser();
-
         return Scaffold(
           body: Container(
             width: double.infinity,
@@ -78,7 +76,8 @@ class _LoginViewState extends State<LoginView> {
                   /// 로그인 버튼
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: AppTheme().lightTheme.colorScheme.tertiary,
+                      backgroundColor:
+                          AppTheme().lightTheme.colorScheme.tertiary,
                     ),
                     child: Text("Login",
                         style: TextStyle(
@@ -116,7 +115,8 @@ class _LoginViewState extends State<LoginView> {
                   /// 회원가입 버튼
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: AppTheme().lightTheme.colorScheme.tertiary,
+                      backgroundColor:
+                          AppTheme().lightTheme.colorScheme.tertiary,
                     ),
                     child: Text("Sign up",
                         style: TextStyle(
@@ -148,7 +148,8 @@ class _LoginViewState extends State<LoginView> {
 
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      primary: AppTheme().lightTheme.colorScheme.tertiary,
+                      backgroundColor:
+                          AppTheme().lightTheme.colorScheme.tertiary,
                     ),
                     onPressed: () {
                       // 구글 계정으로 로그인
@@ -176,7 +177,7 @@ class _LoginViewState extends State<LoginView> {
                       );
                     },
                     icon: Image.asset(
-                      'assets/images/ic_google.png',
+                      'asset/ic_google.png',
                       width: 20,
                       height: 20,
                     ),

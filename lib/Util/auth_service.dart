@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:weatherfit/Login/Model/UserModel.dart';
+import 'package:weatherfit/Util/calendar_service.dart';
 
 class AuthService extends ChangeNotifier {
   User? currentUser() {
     // 현재 유저(로그인 되지 않은 경우 null 반환)
+    RecordService.instance.user = FirebaseAuth.instance.currentUser;
     return FirebaseAuth.instance.currentUser;
   }
 
@@ -62,7 +64,7 @@ class AuthService extends ChangeNotifier {
         email: user.email,
         password: user.password,
       );
-
+      RecordService.instance.user = FirebaseAuth.instance.currentUser;
       onSuccess(); // 성공 함수 호출
       notifyListeners(); // 로그인 상태 변경 알림
     } on FirebaseAuthException catch (e) {
