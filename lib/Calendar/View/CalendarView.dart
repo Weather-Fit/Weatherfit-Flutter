@@ -53,9 +53,10 @@ class _CalendarViewState extends State<CalendarView> {
                       calendarFormat = format;
                     });
                   },
-                  // eventLoader: (day) {
-                  //   return calendarViewModel.getDataByDate(user.uid, day);
-                  // },
+                  eventLoader: (day) {
+                    return calendarViewModel.getDataByDate(user.uid, day);
+                  },
+                  
                   calendarStyle: CalendarStyle(
                       todayTextStyle: TextStyle(color: Colors.black),
                       todayDecoration: BoxDecoration(

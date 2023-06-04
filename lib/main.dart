@@ -1,25 +1,27 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:introduction_screen/introduction_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weatherfit/Login/View/LoginView.dart';
 import 'package:provider/provider.dart';
-import 'Calendar/View/CalendarView.dart';
-import 'Util/calendar_service.dart';
-import 'Login/View/LoginView.dart';
+import 'package:weatherfit/Main/View/MainView.dart';
 import 'Util/auth_service.dart';
 import 'Util/firebase_options.dart';
-import 'app_theme.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+late SharedPreferences prefs;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
 
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform); // firebase 앱 시작
-
+  await dotenv.load(fileName: '.env');
+  await Permission.location.request();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
-        ChangeNotifierProvider(create: (context) => RecordService()),
       ],
       child: const MyApp(),
     ),
@@ -31,65 +33,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isOnboarded = prefs.getBool("isOnboarded") ?? false;
     final user = context.read<AuthService>().currentUser();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: user == null ? LoginView() : OnboardingPage(),
-    );
-  }
-}
-
-///온보딩
-class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: IntroductionScreen(
-        globalBackgroundColor: Colors.white,
-        pages: [
-          PageViewModel(
-            title: "기온에 적합한 코디 확인",
-            body: "기온을 터치하면 기온에 적합한 코디를 빠르게 확인할 수 있습니다.",
-            image: Padding(
-              padding: EdgeInsets.only(top: 50.0),
-              child: SizedBox(
-                height: 800.0, // 원하는 크기로 조정해주세요
-                child: Image.asset('asset/images/img_onboarding1.png'),
-              ),
-            ),
-            decoration: PageDecoration(
-              titleTextStyle: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-              bodyTextStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              ),
-            ),
-          ),
-          PageViewModel(
-            title: "기온에 적합한 코디 확인",
-            bodyWidget: Text("body2"),
-          ),
-          PageViewModel(
-            title: "Title3",
-            bodyWidget: Text("body3"),
-          ),
-        ],
-        next: Text("Next", style: TextStyle(fontWeight: FontWeight.w600)),
-        done: Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
-        onDone: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => BottomNavigationBarWidget()),
-          );
-        },
-      ),
+      // home: user == null ? LoginView() : BottomNavigationBarWidget(),
+      home: user == null ? LoginView() : MainView(),
+      //home: isOnboarded ? HomePage() : OnboardingPage(),
     );
   }
 }
@@ -112,13 +62,13 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       body: IndexedStack(
         index: currentIndex, // index 순서에 해당하는 child를 맨 위에 보여줌
         children: [
-          CalendarView(),
+          FirstPage(),
           SecondPage(),
           ThirdPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
+        currentIndex: currentIndex, // 현재 보여주는 탭
         onTap: (newIndex) {
           print("selected newIndex : $newIndex");
           // 다른 페이지로 이동
@@ -126,8 +76,8 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             currentIndex = newIndex;
           });
         },
-        selectedItemColor: AppTheme().lightTheme.colorScheme.primary,
-        unselectedItemColor: AppTheme().lightTheme.colorScheme.outline,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
@@ -137,6 +87,20 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: ""),
         ],
+      ),
+    );
+  }
+}
+
+/// 첫 번째 페이지
+class FirstPage extends StatelessWidget {
+  const FirstPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("첫 번째 페이지"),
       ),
     );
   }
@@ -173,7 +137,7 @@ class SecondPage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text("두 번째 페이지"),
+        child: MainView(),
       ),
     );
   }
