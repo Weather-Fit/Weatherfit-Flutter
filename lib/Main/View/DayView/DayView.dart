@@ -34,7 +34,6 @@ class DayView extends StatelessWidget {
               ),
               Column(
                 children: [
-                  // CurrentWeather(weather: viewModel.weather!.weather?.first.description),
                   WeatherImage(icon: viewModel.weather!.weather?.first.icon),
                 ],
               )

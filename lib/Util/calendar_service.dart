@@ -48,6 +48,13 @@ class RecordService extends ChangeNotifier {
         .get();
   }
 
+  Future<QuerySnapshot> getByTemperatureRange(int lower, int upper) async {
+    return recordCollection
+        .where('selectTemperature',
+            isGreaterThanOrEqualTo: lower, isLessThanOrEqualTo: upper)
+        .get();
+  }
+
   void create(String text, String image, DateTime? selectedDate,
       DateTime? currentTime, int? selectTemperature) async {
     currentTime = DateTime.now();
