@@ -14,6 +14,9 @@ class RecordView extends StatefulWidget {
 class _RecordViewState extends State<RecordView> {
   TextEditingController textController = TextEditingController();
   TextEditingController imageController = TextEditingController();
+  TextEditingController temperatureController =
+      TextEditingController(); // temperature input controller
+
   DateTime currentTime = DateTime.now();
   @override
   void initState() {
@@ -66,6 +69,15 @@ class _RecordViewState extends State<RecordView> {
                 border: OutlineInputBorder(),
               ),
             ),
+            SizedBox(height: 16), // additional spacing
+            TextField(
+              controller: temperatureController,
+              decoration: InputDecoration(
+                hintText: "현재 온도를 입력해주세요.",
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number, // input for number
+            ),
             SizedBox(height: 32),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -79,10 +91,10 @@ class _RecordViewState extends State<RecordView> {
                     imageController.text,
                     RecordService.instance.selectedDay,
                     currentTime,
-                    null,
+                    int.parse(temperatureController.text),
                   );
                 }
-                Navigator.pop(context);
+                Navigator.pop(context, true);
               },
               child: Text("완료", style: TextStyle(fontSize: 21)),
             )

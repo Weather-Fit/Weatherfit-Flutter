@@ -19,7 +19,7 @@ class _CalendarViewState extends State<CalendarView> {
   CalendarViewModel calendarViewModel = CalendarViewModel();
 
   DateTime selectedDate = DateTime.now();
-
+  bool isSuccess = false;
   @override
   void initState() {
     super.initState();
@@ -113,11 +113,16 @@ class _CalendarViewState extends State<CalendarView> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppTheme().lightTheme.colorScheme.primary,
         child: Icon(Icons.create),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => RecordView()),
           );
+          if (result as bool) {
+            setState(() {
+              isSuccess = result;
+            });
+          }
         },
       ),
     );
