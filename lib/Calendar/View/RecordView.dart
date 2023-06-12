@@ -25,15 +25,31 @@ class _RecordViewState extends State<RecordView> {
   }
 
   final List<String> _imagePaths = [
-    'asset/images/img_hoodie_black.png',
+    'asset/images/img_t_white.jpg',
+    'asset/images/img_t_yellow.jpg',
+    'asset/images/img_t_gray.jpg',
+    'asset/images/img_t_green.jpg',
+    'asset/images/img_t_short_white.jpg',
+    'asset/images/img_t_short_pink.jpg',
+    'asset/images/img_t_short_purple.jpg',
+    'asset/images/img_t_short_blue.jpg',
+    'asset/images/img_vest_grey.png',
+    'asset/images/img_jacket_gray.jpg',
+    'asset/images/img_jacket_black.jpg',
+    'asset/images/img_jacket_ivory.jpg',
     'asset/images/img_hoodie_grey.png',
+    'asset/images/img_hoodie_black.png',
+    'asset/images/img_padding_navy.png',
+    'asset/images/img_coat_black.jpg',
+    'asset/images/img_coat_brown.jpg',
     'asset/images/img_moostang.png',
     'asset/images/img_padding_black.png',
-    'asset/images/img_ops_black.png',
+    'asset/images/img_ops_long_white.jpg',
     'asset/images/img_ops_long_pink.jpg',
-    'asset/images/img_padding_navy.png',
-    'asset/images/img_vest_grey.png',
-    'asset/images/img_t_gray.jpg',
+    'asset/images/img_ops_black.png',
+    'asset/images/img_shirt_sora.jpg',
+    'asset/images/img_shirt_white.jpg',
+    'asset/images/img_cardigan_grey.png',
   ];
 
   @override
@@ -44,6 +60,7 @@ class _RecordViewState extends State<RecordView> {
         height: double.infinity,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(16),
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
